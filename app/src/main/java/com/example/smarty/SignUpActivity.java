@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
@@ -27,6 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView signup;
 
     private FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +49,21 @@ public class SignUpActivity extends AppCompatActivity {
                 if(firstName.getText().toString().length()==0){
                     firstName.setError("this field cannot be empty");
                 }
-                if(lastName.getText().toString().length()==0){
+                else if(lastName.getText().toString().length()==0){
                     lastName.setError("this field cannot be empty");
                 }
-                if(email.getText().toString().length()==0){
+                else if(email.getText().toString().length()==0){
                     email.setError("this field cannot be empty");
                 }
-                if(password.getText().toString().length()==0){
+                else if(password.getText().toString().length()==0){
                     password.setError("this field cannot be empty");
                 }
-                if(password.getText().toString().length()>10){
+                else if(password.getText().toString().length()>10){
                     password.setError("the password is 10 characters maximum");
+                }else{
+                    Register();
                 }
-                Register();
+
 
             }
         });

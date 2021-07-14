@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,13 +48,22 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(email.getText().toString().length()==0){
+                if(email.getText().toString().equals("")){
                     email.setError("this field cannot be empty");
                 }
-                if(password.getText().toString().length()==0){
+                else if(password.getText().toString().equals("")){
                     password.setError("this field cannot be empty");
+                }else{
+                    if(email.getText().toString().equals("adminpage@gmail.com")&&password.getText().toString().equals("123adminpage456")){
+                        email.setText("");
+                        password.setText("");
+                        startActivity(new Intent(getApplicationContext(),AdminActivity.class));
+                    }else{
+                        Login();
+                    }
+
                 }
-                Login();
+
 
             }
         });
@@ -90,23 +105,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
+
+
     public void Login(){
-        firebaseAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            FirebaseUser user=firebaseAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(),"logged in successfully",Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(getApplicationContext(),MainPage.class);
-                            startActivity(intent);
-                        }else{
-                            Toast.makeText(getApplicationContext(),"there was an error loggin in",Toast.LENGTH_SHORT).show();
+
+
+            firebaseAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+
+                                startActivity(new Intent(getApplicationContext(),MainPage.class));
+
+                            }else{
+                                Toast.makeText(getApplicationContext(),"there was an error loggin in",Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
     }
-
-
 
 }
