@@ -22,6 +22,7 @@
             android:layout_height="273dp"
             android:background="@drawable/blue_bg">
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/logo"
                 android:layout_width="77dp"
                 android:layout_height="77dp"
                 android:layout_gravity="center_horizontal"
@@ -166,10 +167,12 @@
                 android:id="@+id/skip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" / skip this for now"
+                android:text="Sign up"
                 android:textColor="#1566e0"
                 android:fontFamily="@font/poppins_medium"
                 android:textSize="10.5sp"/>
+
+
 
         </LinearLayout>
 
