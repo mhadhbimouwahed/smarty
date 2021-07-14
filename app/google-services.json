@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "818928058217",
+    "project_id": "smarty-67489",
+    "storage_bucket": "smarty-67489.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818928058217:android:15ced8af3fd5b096b847f8",
+        "android_client_info": {
+          "package_name": "com.example.smarty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818928058217-plk2i82q3e6p7ktnem0ltpoe26pr0g0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmerxVSEbEs4Cazp0cWv3YFWQfVZqDk84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818928058217-plk2i82q3e6p7ktnem0ltpoe26pr0g0o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
