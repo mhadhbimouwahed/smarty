@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smarty">
 
-
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Smarty">
-        <activity android:name=".AdminActivity"></activity>
+        <activity android:name=".DeleteProductActivity"></activity>
+        <activity android:name=".ModifyProductActivity" />
+        <activity android:name=".AddNewProductActivity" />
+        <activity android:name=".AdminActivity" />
         <activity android:name=".NotLoggedinActivity" />
         <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".MainPage" />
@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

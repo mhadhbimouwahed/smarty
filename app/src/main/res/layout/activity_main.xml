@@ -15,12 +15,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/imageedit_1_3498649053"
         android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="273dp"
-            android:background="@drawable/blue_bg">
+            android:layout_height="250dp"
+            android:background="@drawable/gradient">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/logo"
                 android:layout_width="77dp"
@@ -110,7 +111,7 @@
             android:layout_marginLeft="62dp"
             android:layout_marginTop="18.7dp"
             android:layout_marginRight="62dp"
-            android:background="@drawable/blue_fill__rounded_color"
+            android:background="@drawable/gradient_textview"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
             android:paddingTop="14dp"
@@ -124,10 +125,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins_medium"
             android:text="Forgot Password?"
-            android:textColor="#1566e0"
+            android:textColor="#ffffff"
             android:textSize="10.5sp"
             />
     </LinearLayout>
@@ -137,23 +138,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="13.7dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:gravity="center_horizontal"
-                android:text="or"
-                android:textColor="#aeaeae"
-                android:textSize="13.3sp"
-                />
 
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -168,7 +153,7 @@
                 android:text="Sign up with email"
                 android:textColor="#ffffff"
                 android:padding="10dp"
-                android:background="@drawable/blue_fill__rounded_color"
+                android:background="@drawable/gradient_textview"
                 android:fontFamily="@font/poppins_medium"
 
                 android:textSize="10.5sp"/>

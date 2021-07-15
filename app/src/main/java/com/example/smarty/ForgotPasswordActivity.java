@@ -42,8 +42,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(email.getText().toString().length()==0){
                     email.setError("this field cannot be empty");
+                }else{
+                    ForgotPassword();
                 }
-                ForgotPassword();
+
             }
         });
 

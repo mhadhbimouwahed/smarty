@@ -2,6 +2,7 @@ package com.example.smarty;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,16 +25,16 @@ public class AdminActivity extends AppCompatActivity {
 
 
         addNewProduct.setOnClickListener(x->{
-            Toast.makeText(getApplicationContext(),"adding new product",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(),AddNewProductActivity.class));
         });
 
 
         modifyProduct.setOnClickListener(x->{
-            Toast.makeText(getApplicationContext(),"modifying a product",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(),ModifyProductActivity.class));
         });
 
         deleteProduct.setOnClickListener(x->{
-            Toast.makeText(getApplicationContext(),"deleting a product",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(),DeleteProductActivity.class));
         });
     }
 }

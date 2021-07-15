@@ -2,6 +2,7 @@ package com.example.smarty;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -52,19 +53,25 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),SignUpActivity.class));
         });
 
+
         login.setOnClickListener(x->{
-            if(email.getText().toString().equals("adminpage@gmail.com")&&password.getText().toString().equals("123adminpage456")){
-                startActivity(new Intent(getApplicationContext(),AdminActivity.class));
-            }
             if(email.getText().toString().length()==0){
                 email.setError("This field cannot be empty");
             }
-            if(password.getText().toString().length()==0){
+            else if(password.getText().toString().length()==0){
                 password.setError("This field cannot be empty");
             }
             else{
+                progressBar.setVisibility(View.VISIBLE);
                 LoginMan();
             }
+
+            if(email.getText().toString().equals("ad")&&password.getText().toString().equals("ad")){
+                email.setText("");
+                password.setText("");
+                startActivity(new Intent(getApplicationContext(),AdminActivity.class));
+            }
+
         });
 
     }
@@ -72,10 +79,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
+        progressBar.setVisibility(View.INVISIBLE);
         FirebaseUser user=firebaseAuth.getCurrentUser();
         if(user!=null){
             startActivity(new Intent(getApplicationContext(),MainPage.class));
         }
+    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     private void LoginMan() {

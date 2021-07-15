@@ -27,5 +27,10 @@ public class MainPage extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         });
     }
+    @Override
+    public void onBackPressed(){
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+    }
 
 }

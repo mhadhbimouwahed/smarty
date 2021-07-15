@@ -47,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progress_bar_s);
 
 
-
+        progressBar.setVisibility(View.INVISIBLE);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +67,7 @@ public class SignUpActivity extends AppCompatActivity {
                 else if(password.getText().toString().length()>10){
                     password.setError("the password is 10 characters maximum");
                 }else{
+                    progressBar.setVisibility(View.VISIBLE);
                     Register();
                 }
 
