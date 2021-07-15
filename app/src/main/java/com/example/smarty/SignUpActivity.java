@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +28,9 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private TextView signup;
-
+    private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
+
 
 
     @Override
@@ -35,11 +38,14 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         firebaseAuth=FirebaseAuth.getInstance();
+
         firstName=findViewById(R.id.firstName);
         lastName=findViewById(R.id.lastName);
         email=findViewById(R.id.email_s);
         password=findViewById(R.id.password_s);
         signup=findViewById(R.id.signup_s);
+        progressBar=findViewById(R.id.progress_bar_s);
+
 
 
 
@@ -73,7 +79,8 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 User user=new User(email.getText().toString().trim(),password.getText().toString().trim(),firstName.getText().toString().trim(),lastName.getText().toString().trim());
-                FirebaseDatabase.getInstance().getReference("Users").child(String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getUid())).setValue(user);
+                Task<Void> users = FirebaseDatabase.getInstance().getReference("Users").child(String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getUid())).setValue(user);
+
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"created account successfully",Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(getApplicationContext(),MainPage.class);

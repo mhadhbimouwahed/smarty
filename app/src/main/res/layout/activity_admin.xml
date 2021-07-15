@@ -22,6 +22,39 @@
             android:layout_marginTop="70dp"
             android:textSize="14sp"
             />
+        <TextView
+            android:id="@+id/addNewProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add a new product"
+            android:layout_marginTop="110dp"
+            android:background="@drawable/blue_fill__rounded_color"
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            android:fontFamily="@font/poppins_medium"/>
+        <TextView
+            android:id="@+id/modifyProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="modify a product"
+            android:layout_marginTop="175dp"
+            android:background="@drawable/blue_fill__rounded_color"
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            android:fontFamily="@font/poppins_medium"/>
+        <TextView
+            android:id="@+id/deleteProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="delete a product"
+            android:layout_marginTop="240dp"
+            android:background="@drawable/blue_fill__rounded_color"
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            android:fontFamily="@font/poppins_medium"/>
 
 
 

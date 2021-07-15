@@ -11,8 +11,7 @@ public class User {
         this.FirstName=FirstName;
         this.LastName=LastName;
     }
-    public String getFirstName(){return this.FirstName;}
-    public String getLastName(){return this.LastName;}
+
 
 
 }

@@ -63,7 +63,13 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="17dp"
                     android:src="@drawable/email"/>
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -159,18 +165,15 @@
                 android:id="@+id/signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign up"
-                android:textColor="#1566e0"
+                android:text="Sign up with email"
+                android:textColor="#ffffff"
+                android:padding="10dp"
+                android:background="@drawable/blue_fill__rounded_color"
                 android:fontFamily="@font/poppins_medium"
+
                 android:textSize="10.5sp"/>
-            <TextView
-                android:id="@+id/skip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign up"
-                android:textColor="#1566e0"
-                android:fontFamily="@font/poppins_medium"
-                android:textSize="10.5sp"/>
+
+
 
 
 
