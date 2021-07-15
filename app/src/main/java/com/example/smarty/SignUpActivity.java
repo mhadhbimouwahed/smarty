@@ -64,9 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
                 else if(password.getText().toString().length()==0){
                     password.setError("this field cannot be empty");
                 }
-                else if(password.getText().toString().length()>10){
-                    password.setError("the password is 10 characters maximum");
-                }else{
+                else{
                     progressBar.setVisibility(View.VISIBLE);
                     Register();
                 }
@@ -84,9 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"created account successfully",Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(getApplicationContext(),MainPage.class);
-
-                    startActivity(intent);
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
                     finish();
                 }else{
                     Toast.makeText(getApplicationContext(),"Sign up failed",Toast.LENGTH_SHORT).show();

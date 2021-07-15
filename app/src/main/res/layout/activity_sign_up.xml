@@ -19,16 +19,24 @@
 
         android:orientation="vertical">
 
+
+
+
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
             >
-            <ImageView
-                android:layout_width="77dp"
-                android:layout_height="77dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="93dp"
-                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign up for free"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:textColor="#ffffff"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center_horizontal"/>
         </FrameLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -178,12 +186,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="62dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="60dp"
             android:layout_marginRight="62dp"
             android:gravity="center"
+            android:textSize="10sp"
             android:textColor="#ffffff"
-            android:textStyle="bold"
-            android:text="qsdqsdqsdqsd"/>
+            android:fontFamily="@font/poppins_regular"
+            android:text="Sale of office equipment, computers and household appliances"/>
 
     </LinearLayout>
 

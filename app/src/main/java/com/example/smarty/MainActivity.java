@@ -3,7 +3,10 @@ package com.example.smarty;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView login;
     private TextView forgotPassword;
     private TextView signup;
+    private ImageView logo;
     private ProgressBar progressBar;
 
 
@@ -28,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
 
 
-    private static String TAG="FAILURE";
+    private Animation animation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +47,14 @@ public class MainActivity extends AppCompatActivity {
         login = findViewById(R.id.login);
         forgotPassword = findViewById(R.id.forgotPassword);
         signup = findViewById(R.id.signup);
-
         progressBar=findViewById(R.id.progress_bar);
+        logo=findViewById(R.id.logo);
+        animation=AnimationUtils.loadAnimation(getApplicationContext(),R.anim.animation);
+
+        logo.setOnClickListener(x->{
+            logo.startAnimation(animation);
+        });
+
 
         forgotPassword.setOnClickListener(x->{
             startActivity(new Intent(getApplicationContext(),ForgotPasswordActivity.class));
@@ -66,11 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 LoginMan();
             }
 
-            if(email.getText().toString().equals("ad")&&password.getText().toString().equals("ad")){
-                email.setText("");
-                password.setText("");
-                startActivity(new Intent(getApplicationContext(),AdminActivity.class));
-            }
 
         });
 
@@ -95,8 +101,14 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                 .addOnCompleteListener(this,l->{
                    if(l.isSuccessful()){
-                       startActivity(new Intent(getApplicationContext(),MainPage.class));
-                       Toast.makeText(getApplicationContext(),"Logged in successfully",Toast.LENGTH_LONG).show();
+                       if(firebaseAuth.getCurrentUser().getEmail().equals("adminpage@gmail.com")){
+                           startActivity(new Intent(getApplicationContext(),AdminActivity.class));
+                           Toast.makeText(getApplicationContext(),"Welcome admin",Toast.LENGTH_SHORT).show();
+                       }else{
+                           startActivity(new Intent(getApplicationContext(),MainPage.class));
+                           Toast.makeText(getApplicationContext(),"Logged in successfully",Toast.LENGTH_LONG).show();
+                       }
+
                    }
                 });
     }

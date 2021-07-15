@@ -18,20 +18,17 @@
         android:background="@drawable/imageedit_1_3498649053"
         android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@drawable/gradient">
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/logo"
                 android:layout_width="77dp"
                 android:layout_height="77dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/rounded_corners"
-                android:layout_marginTop="93dp"
+
+                android:layout_marginTop="175dp"
                 android:src="@drawable/logo"
                 />
-        </FrameLayout>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

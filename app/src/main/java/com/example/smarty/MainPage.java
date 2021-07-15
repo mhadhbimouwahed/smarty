@@ -3,6 +3,7 @@ package com.example.smarty;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,14 +24,19 @@ public class MainPage extends AppCompatActivity {
 
 
         logout.setOnClickListener(x->{
+
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         });
     }
+
     @Override
-    public void onBackPressed(){
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+    protected void onStart(){
+        super.onStart();
+        if(FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("adminpage@gmail.com")){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            FirebaseAuth.getInstance().signOut();
+        }
     }
 
 }
