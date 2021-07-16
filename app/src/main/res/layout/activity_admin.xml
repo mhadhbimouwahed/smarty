@@ -7,29 +7,19 @@
     android:background="@drawable/gradient"
     tools:context=".AdminActivity">
 
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="this is the admin page"
-            android:background="@drawable/gradient"
-            android:textStyle="bold"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:layout_marginTop="50dp"
-            android:textSize="14sp"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="do not change the password or email"
-            android:background="@drawable/gradient"
+            android:text="This is the admin page You are the only person who have access to the admin page Do not tell anyone your\nemail address or your password"
+
             android:fontFamily="@font/poppins_regular"
             android:textStyle="bold"
             android:gravity="center"
+            android:padding="4dp"
             android:textColor="#ffffff"
             android:layout_marginTop="70dp"
-            android:textSize="14sp"
+            android:textSize="13sp"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,6 +56,18 @@
                     android:layout_height="wrap_content"
                     android:text="delete a product"
 
+                    android:background="@drawable/gradient_textview"
+                    android:padding="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#ffffff"
+                    android:fontFamily="@font/poppins_medium"/>
+                <TextView
+                    android:id="@+id/logout_admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Log out"
+
+                    android:layout_margin="50dp"
                     android:background="@drawable/gradient_textview"
                     android:padding="10dp"
                     android:layout_centerHorizontal="true"

@@ -89,7 +89,11 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user=firebaseAuth.getCurrentUser();
         if(user!=null){
             startActivity(new Intent(getApplicationContext(),MainPage.class));
+            if(user.getEmail().equals("adminpage@gmail.com")){
+                startActivity(new Intent(getApplicationContext(),AdminActivity.class));
+            }
         }
+
     }
     @Override
     protected void onStop(){
