@@ -33,14 +33,14 @@
 
 
         <EditText
-            android:id="@+id/search_product_to_delete"
+            android:id="@+id/search_product_del_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:background="@android:color/transparent"
             android:fontFamily="@font/poppins_regular"
 
-            android:hint="First Name"
+            android:hint="search product to delete"
             android:inputType="text"
             android:maxLines="1"
             android:paddingLeft="17dp"
@@ -57,6 +57,7 @@
         android:layout_marginTop="125dp"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/search_delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="search"
@@ -72,10 +73,12 @@
         android:layout_height="match_parent"
         android:layout_marginTop="175dp">
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <ListView
+                android:id="@+id/list_delete"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

@@ -1,20 +1,37 @@
 package com.example.smarty;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.DialogInterface;
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.UUID;
 
 import static com.example.smarty.R.layout.activity_add_new_product;
 
@@ -28,6 +45,13 @@ public class AddNewProductActivity extends AppCompatActivity {
     private EditText in_stock;
     private TextView save_product;
 
+    private FirebaseStorage storage;
+    public Uri imageUri;
+    private CollectionReference collectionReference;
+    public static final int IMAGE_PICK_CODE=1000 ;
+    public static final int PERMISSION_CODE = 1001;
+    public StorageReference storageReference;
+    public String downloadImageUrl;
 
 
     @Override
@@ -42,6 +66,11 @@ public class AddNewProductActivity extends AppCompatActivity {
         product_description=findViewById(R.id.product_description);
         in_stock=findViewById(R.id.in_stock);
         save_product=findViewById(R.id.save_product);
+
+        collectionReference=FirebaseFirestore.getInstance().collection("Products");
+        storage=FirebaseStorage.getInstance();
+        final String randomKey=UUID.randomUUID().toString();
+        storageReference= storage.getReference().child("Images/"+randomKey);
 
 
 
@@ -58,11 +87,136 @@ public class AddNewProductActivity extends AppCompatActivity {
                 product_description.setError("This field cannot be empty");
             }else if(in_stock.getText().toString().length()==0){
                 in_stock.setError("This field cannot be empty");
+            }else if(product_image==null) {
+                Toast.makeText(this, "you need to select an image for the product", Toast.LENGTH_SHORT).show();
             }else{
-
+                uploadImage();
             }
+        });
+
+        product_image.setOnClickListener(x->{
+            Toast.makeText(this, "choose an image for your product", Toast.LENGTH_SHORT).show();
+            openGallery();
+
         });
 
     }
 
+    private void saveProduct() {
+
+
+        HashMap<String,Object> product=new HashMap<>();
+        product.put("ProductName",product_name.getText().toString());
+        product.put("ProductPrise",product_prise.getText().toString());
+        product.put("ProductImage",downloadImageUrl);
+        product.put("ProductManufacturer",product_manufacturer.getText().toString());
+        product.put("ProductCategory",product_category.getText().toString());
+        product.put("ProductDescription",product_description.getText().toString());
+        product.put("InStock",in_stock.getText().toString());
+
+        collectionReference.document().set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull  Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(AddNewProductActivity.this, "product added successfully", Toast.LENGTH_SHORT).show();
+                    product_name.setText("");
+                    product_prise.setText("");
+                    product_image.setImageURI(null);
+                    product_manufacturer.setText("");
+                    product_category.setText("");
+                    product_category.setText("");
+                    product_description.setText("");
+                    in_stock.setText("");
+                }else{
+                    Toast.makeText(AddNewProductActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(e->{
+            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+            Log.d("Error adding a new product ",e.getMessage());
+        });
+    }
+
+
+
+    private void openGallery(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_DENIED){
+                String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                requestPermissions(permissions, PERMISSION_CODE);
+            }
+            else {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, IMAGE_PICK_CODE);
+
+            }
+        }
+        else {
+
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            startActivityForResult(intent, IMAGE_PICK_CODE);
+
+        }
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PERMISSION_CODE: {
+                if (grantResults.length > 0 && grantResults[0] ==
+                        PackageManager.PERMISSION_GRANTED) {
+
+                    openGallery();
+                } else {
+
+                    Toast.makeText(this, "Permission denied...!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            imageUri=data.getData();
+            product_image.setImageURI(imageUri);
+        }
+    }
+
+    private void uploadImage() {
+
+        final UploadTask uploadTask=storageReference.putFile(imageUri);
+
+        uploadTask.addOnFailureListener(fail->{
+            Toast.makeText(this, "failed to upload the image", Toast.LENGTH_SHORT).show();
+        }).addOnSuccessListener(success->{
+            Toast.makeText(this, "image uploaded successfully", Toast.LENGTH_SHORT).show();
+            Task<Uri> uriTask=uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull  Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if(!task.isSuccessful()){
+                        throw task.getException();
+                    }
+                    downloadImageUrl=storageReference.getDownloadUrl().toString();
+                    return storageReference.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(AddNewProductActivity.this, "image uploaded successfully", Toast.LENGTH_SHORT).show();
+                        saveProduct();
+                    }
+                }
+            });
+        });
+
+    }
 }
