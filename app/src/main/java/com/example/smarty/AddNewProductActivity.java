@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -44,6 +45,7 @@ public class AddNewProductActivity extends AppCompatActivity {
     private EditText product_description;
     private EditText in_stock;
     private TextView save_product;
+    private ProgressBar progress_bar_new_product;
 
     private FirebaseStorage storage;
     public Uri imageUri;
@@ -52,6 +54,7 @@ public class AddNewProductActivity extends AppCompatActivity {
     public static final int PERMISSION_CODE = 1001;
     public StorageReference storageReference;
     public String downloadImageUrl;
+    private DocumentReference documentReference;
 
 
     @Override
@@ -66,12 +69,14 @@ public class AddNewProductActivity extends AppCompatActivity {
         product_description=findViewById(R.id.product_description);
         in_stock=findViewById(R.id.in_stock);
         save_product=findViewById(R.id.save_product);
+        progress_bar_new_product=findViewById(R.id.progress_bar_new_product);
 
         collectionReference=FirebaseFirestore.getInstance().collection("Products");
-        storage=FirebaseStorage.getInstance();
-        final String randomKey=UUID.randomUUID().toString();
-        storageReference= storage.getReference().child("Images/"+randomKey);
 
+        storage=FirebaseStorage.getInstance();
+        String randomKey=UUID.randomUUID().toString();
+        storageReference= storage.getReference().child("Images/"+randomKey);
+        documentReference=collectionReference.document(randomKey);
 
 
         save_product.setOnClickListener(x->{
@@ -90,6 +95,7 @@ public class AddNewProductActivity extends AppCompatActivity {
             }else if(product_image==null) {
                 Toast.makeText(this, "you need to select an image for the product", Toast.LENGTH_SHORT).show();
             }else{
+                progress_bar_new_product.setVisibility(View.VISIBLE);
                 uploadImage();
             }
         });
@@ -114,7 +120,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         product.put("ProductDescription",product_description.getText().toString());
         product.put("InStock",in_stock.getText().toString());
 
-        collectionReference.document().set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+        documentReference.set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull  Task<Void> task) {
                 if(task.isSuccessful()){
@@ -211,12 +217,25 @@ public class AddNewProductActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(AddNewProductActivity.this, "image uploaded successfully", Toast.LENGTH_SHORT).show();
+
+                        progress_bar_new_product.setVisibility(View.INVISIBLE);
                         saveProduct();
                     }
                 }
             });
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        progress_bar_new_product.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        progress_bar_new_product.setVisibility(View.INVISIBLE);
     }
 }

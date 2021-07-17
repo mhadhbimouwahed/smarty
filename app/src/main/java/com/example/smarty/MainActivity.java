@@ -1,5 +1,6 @@
 package com.example.smarty;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
+    
 
 
     private Animation animation;
@@ -113,6 +115,21 @@ public class MainActivity extends AppCompatActivity {
                            Toast.makeText(getApplicationContext(),"Logged in successfully",Toast.LENGTH_LONG).show();
                        }
 
+                   }else{
+                       email.setText("");
+                       password.setText("");
+                       AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
+                       alertDialog.create();
+                       alertDialog.setTitle("Error");
+                       alertDialog.setMessage("This account doesn't exist");
+                       alertDialog.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               dialog.dismiss();
+                           }
+                       });
+                       alertDialog.show();
+                       progressBar.setVisibility(View.INVISIBLE);
                    }
                 });
     }
