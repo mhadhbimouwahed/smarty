@@ -37,7 +37,7 @@
                 android:textStyle="bold"
                 android:textSize="25sp"
                 android:textColor="#ffffff"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="sans-serif"
                 android:layout_marginTop="50dp"
                 android:layout_gravity="center_horizontal"/>
         </FrameLayout>
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
 
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="sans-serif"
 
                 android:hint="First Name"
                 android:inputType="text"
@@ -64,7 +64,7 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
 
         </RelativeLayout>
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
 
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="sans-serif"
                 android:hint="Last Name"
                 android:inputType="text"
                 android:maxLength="10"
@@ -91,7 +91,7 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
             <ProgressBar
                 android:id="@+id/progress_bar_s"
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/username_icon"
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="sans-serif"
 
                 android:hint="Email"
                 android:inputType="textEmailAddress"
@@ -124,7 +124,7 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/username_icon"
@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/icon"
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="sans-serif"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:maxLines="1"
@@ -156,7 +156,7 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
             <ImageView
                 android:id="@+id/icon"
@@ -177,13 +177,14 @@
             android:layout_marginTop="18.7dp"
             android:layout_marginRight="62dp"
             android:background="@drawable/gradient_textview"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
             android:gravity="center"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
             android:text="Sign up"
             android:textColor="#ffffff"
-            android:textSize="12sp"
+            android:textSize="14sp"
             />
         <TextView
             android:layout_width="match_parent"
@@ -192,9 +193,9 @@
             android:layout_marginTop="60dp"
             android:layout_marginRight="62dp"
             android:gravity="center"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textColor="#ffffff"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="sans-serif"
             android:text="Sale of office equipment, computers and household appliances"/>
 
     </LinearLayout>

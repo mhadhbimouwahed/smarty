@@ -18,7 +18,8 @@
             android:layout_height="match_parent"
             android:text="Deleting a product"
             android:textColor="#ffffff"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
             android:gravity="center"
             android:textSize="20sp"/>
     </LinearLayout>
@@ -38,7 +39,7 @@
             android:layout_height="wrap_content"
 
             android:background="@android:color/transparent"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="sans-serif"
 
             android:hint="search product to delete"
             android:inputType="text"
@@ -47,7 +48,7 @@
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:textCursorDrawable="@drawable/cursor_color"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
 
     </RelativeLayout>
@@ -65,7 +66,8 @@
             android:padding="12dp"
             android:layout_gravity="center_horizontal"
             android:textColor="#ffffff"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
             />
     </LinearLayout>
     <ScrollView

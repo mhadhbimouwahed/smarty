@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/username_icon"
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="sans-serif"
 
                 android:hint="Email"
                 android:inputType="textEmailAddress"
@@ -52,7 +52,7 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <ImageView
                     android:id="@+id/username_icon"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/icon"
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="sans-serif"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:maxLines="1"
@@ -89,7 +89,7 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
             <ImageView
                 android:id="@+id/icon"
@@ -109,13 +109,14 @@
             android:layout_marginTop="18.7dp"
             android:layout_marginRight="62dp"
             android:background="@drawable/gradient_textview"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="sans-serif"
             android:gravity="center"
+            android:textStyle="bold"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
             android:text="Login"
             android:textColor="#ffffff"
-            android:textSize="12sp"
+            android:textSize="14sp"
             />
         <TextView
             android:id="@+id/forgotPassword"
@@ -123,10 +124,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="sans-serif"
             android:text="Forgot Password?"
             android:textColor="#ffffff"
-            android:textSize="10.5sp"
+            android:textSize="14sp"
             />
     </LinearLayout>
     <LinearLayout
@@ -150,10 +151,11 @@
                 android:text="Sign up with email"
                 android:textColor="#ffffff"
                 android:padding="10dp"
+                android:textStyle="bold"
                 android:background="@drawable/gradient_textview"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="sans-serif"
 
-                android:textSize="10.5sp"/>
+                android:textSize="14sp"/>
 
 
 

@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="sans-serif"
                 android:hint="search product"
                 android:inputType="text"
                 android:maxLines="1"
@@ -32,7 +32,7 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
         </RelativeLayout>
         <TextView
@@ -43,9 +43,10 @@
             android:layout_marginLeft="62dp"
             android:layout_marginRight="62dp"
             android:background="@drawable/gradient_textview"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="sans-serif"
             android:layout_marginTop="15dp"
             android:gravity="center"
+            android:textStyle="bold"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
             android:text="search"
