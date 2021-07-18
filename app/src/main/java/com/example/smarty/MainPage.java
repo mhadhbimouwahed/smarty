@@ -13,8 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -24,38 +26,46 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class MainPage extends AppCompatActivity {
     private TextView logout;
-    private FirebaseAuth firebaseAuth;
+    private TextView content;
+    private ImageView product_image;
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firestore;
+    FirebaseStorage storage;
+    StorageReference storageReference;
+    CollectionReference productCollection;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+
         firebaseAuth=FirebaseAuth.getInstance();
+        firestore=FirebaseFirestore.getInstance();
+        productCollection=firestore.collection("Products/");
+        storage=FirebaseStorage.getInstance();
+
+
         logout=findViewById(R.id.logout);
-
-
-
-
-
-
+        content=findViewById(R.id.product);
+        product_image=findViewById(R.id.product_image_content);
 
         logout.setOnClickListener(x->{
 
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         });
-
-
-
 
     }
 
@@ -66,6 +76,23 @@ public class MainPage extends AppCompatActivity {
         if(FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("adminpage@gmail.com")){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
             FirebaseAuth.getInstance().signOut();
+        }else{
+            productCollection.get().addOnSuccessListener(success->{
+                Toast.makeText(this, "loading products", Toast.LENGTH_SHORT).show();
+            }).addOnFailureListener(fail->{
+                Toast.makeText(this, "failed to load products, check your Internet connection", Toast.LENGTH_SHORT).show();
+            }).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()){
+                        for(QueryDocumentSnapshot documentSnapshot:task.getResult()){
+                            HashMap<String,Object> hashMap=new HashMap<>(documentSnapshot.getData());
+
+
+                        }
+                    }
+                }
+            });
         }
 
 

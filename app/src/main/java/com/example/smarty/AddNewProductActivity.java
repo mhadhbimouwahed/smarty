@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -74,8 +76,8 @@ public class AddNewProductActivity extends AppCompatActivity {
         collectionReference=FirebaseFirestore.getInstance().collection("Products");
 
         storage=FirebaseStorage.getInstance();
-        String randomKey=UUID.randomUUID().toString();
-        storageReference= storage.getReference().child("Images/"+randomKey);
+        final String randomKey=UUID.randomUUID().toString();
+        storageReference= storage.getReference().child("Images/"+randomKey+".jpg");
         documentReference=collectionReference.document(randomKey);
 
 
@@ -96,7 +98,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                 Toast.makeText(this, "you need to select an image for the product", Toast.LENGTH_SHORT).show();
             }else{
                 progress_bar_new_product.setVisibility(View.VISIBLE);
-                uploadImage();
+                addNewProduct();
             }
         });
 
@@ -107,43 +109,63 @@ public class AddNewProductActivity extends AppCompatActivity {
         });
 
     }
+    private void addNewProduct() {
 
-    private void saveProduct() {
-
-
-        HashMap<String,Object> product=new HashMap<>();
-        product.put("ProductName",product_name.getText().toString());
-        product.put("ProductPrise",product_prise.getText().toString());
-        product.put("ProductImage",downloadImageUrl);
-        product.put("ProductManufacturer",product_manufacturer.getText().toString());
-        product.put("ProductCategory",product_category.getText().toString());
-        product.put("ProductDescription",product_description.getText().toString());
-        product.put("InStock",in_stock.getText().toString());
-
-        documentReference.set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+        final UploadTask uploadTask=storageReference.putFile(imageUri);
+        Task<Uri> uriTask=uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
-            public void onComplete(@NonNull  Task<Void> task) {
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if(!task.isSuccessful()){
+                    throw task.getException();
+                }
+                downloadImageUrl=storageReference.getDownloadUrl().toString();
+                System.out.println(downloadImageUrl);
+                return storageReference.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(AddNewProductActivity.this, "product added successfully", Toast.LENGTH_SHORT).show();
-                    product_name.setText("");
-                    product_prise.setText("");
-                    product_image.setImageURI(null);
-                    product_manufacturer.setText("");
-                    product_category.setText("");
-                    product_category.setText("");
-                    product_description.setText("");
-                    in_stock.setText("");
+                        Uri downloadUri=task.getResult();
+                        HashMap<String,Object> product=new HashMap<>();
+                        product.put("ProductName",product_name.getText().toString());
+                        product.put("ProductImage",downloadUri.toString());
+                        product.put("ProductPrise",product_prise.getText().toString());
+                        product.put("ProductCategory",product_category.getText().toString());
+                        product.put("ProductManufacturer",product_manufacturer.getText().toString());
+                        product.put("ProductDescription",product_description.getText().toString());
+                        product.put("InStock",in_stock.getText().toString());
+                        documentReference.set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(AddNewProductActivity.this, "product added successfully", Toast.LENGTH_SHORT).show();
+                                    product_name.setText("");
+                                    product_image.setImageURI(null);
+                                    product_prise.setText("");
+                                    product_category.setText("");
+                                    product_manufacturer.setText("");
+                                    product_description.setText("");
+                                    in_stock.setText("");
+                                }else{
+                                    Toast.makeText(AddNewProductActivity.this, "failed to add new product", Toast.LENGTH_SHORT).show();
+                                    try {
+                                        throw task.getException();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                            }
+                        });
+
                 }else{
-                    Toast.makeText(AddNewProductActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddNewProductActivity.this, "failed to upload the image", Toast.LENGTH_SHORT).show();
                 }
             }
-        }).addOnFailureListener(e->{
-            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
-            Log.d("Error adding a new product ",e.getMessage());
         });
+
     }
-
-
 
     private void openGallery(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -196,36 +218,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadImage() {
 
-        final UploadTask uploadTask=storageReference.putFile(imageUri);
-
-        uploadTask.addOnFailureListener(fail->{
-            Toast.makeText(this, "failed to upload the image", Toast.LENGTH_SHORT).show();
-        }).addOnSuccessListener(success->{
-            Toast.makeText(this, "image uploaded successfully", Toast.LENGTH_SHORT).show();
-            Task<Uri> uriTask=uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull  Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if(!task.isSuccessful()){
-                        throw task.getException();
-                    }
-                    downloadImageUrl=storageReference.getDownloadUrl().toString();
-                    return storageReference.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if(task.isSuccessful()){
-
-                        progress_bar_new_product.setVisibility(View.INVISIBLE);
-                        saveProduct();
-                    }
-                }
-            });
-        });
-
-    }
 
     @Override
     protected void onStart() {
