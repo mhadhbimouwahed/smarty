@@ -1,6 +1,6 @@
 package com.example.smarty;
 
-import java.util.Map;
+import android.net.Uri;
 
 public class Product {
     String productID;
@@ -53,8 +53,8 @@ public class Product {
         return productCategory;
     }
 
-    public String getProductImage() {
-        return productImage;
+    public Uri getProductImage() {
+        return Uri.parse(productImage);
     }
 
     public String getProductManufacturer() {

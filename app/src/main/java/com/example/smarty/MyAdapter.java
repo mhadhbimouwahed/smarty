@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
@@ -39,6 +41,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         Product product=list.get(position);
         holder.nomDuProduit.setText(product.getProductName());
         holder.prixDuProduit.setText(product.getProductPrise());
+        Glide.with(context)
+                .load(product.getProductImage())
+                .into(holder.imageDuProduit);
 
     }
 

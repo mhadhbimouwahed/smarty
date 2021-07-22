@@ -42,7 +42,7 @@
         android:id="@+id/imageDuProduit"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginLeft="225dp"
+        android:layout_marginStart="225dp"
         android:layout_marginTop="30dp"/>
 
 
