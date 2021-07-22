@@ -1,6 +1,8 @@
 package com.example.smarty;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,8 +39,7 @@ import java.util.stream.Collectors;
 
 public class MainPage extends AppCompatActivity {
     private TextView logout;
-    private TextView content;
-    private ImageView product_image;
+
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
     FirebaseStorage storage;
@@ -57,9 +58,9 @@ public class MainPage extends AppCompatActivity {
         storage=FirebaseStorage.getInstance();
 
 
+
         logout=findViewById(R.id.logout);
-        content=findViewById(R.id.product);
-        product_image=findViewById(R.id.product_image_content);
+
 
         logout.setOnClickListener(x->{
 
@@ -77,22 +78,7 @@ public class MainPage extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
             FirebaseAuth.getInstance().signOut();
         }else{
-            productCollection.get().addOnSuccessListener(success->{
-                Toast.makeText(this, "loading products", Toast.LENGTH_SHORT).show();
-            }).addOnFailureListener(fail->{
-                Toast.makeText(this, "failed to load products, check your Internet connection", Toast.LENGTH_SHORT).show();
-            }).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()){
-                        for(QueryDocumentSnapshot documentSnapshot:task.getResult()){
-                            HashMap<String,Object> hashMap=new HashMap<>(documentSnapshot.getData());
 
-
-                        }
-                    }
-                }
-            });
         }
 
 

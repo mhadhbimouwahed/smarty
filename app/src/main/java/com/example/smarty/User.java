@@ -2,6 +2,7 @@ package com.example.smarty;
 
 public class User {
     public String FirstName,LastName,Email,Password;
+
     public User(){
 
     }

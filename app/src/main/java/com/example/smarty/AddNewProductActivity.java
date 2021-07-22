@@ -76,9 +76,10 @@ public class AddNewProductActivity extends AppCompatActivity {
         collectionReference=FirebaseFirestore.getInstance().collection("Products");
 
         storage=FirebaseStorage.getInstance();
-        final String randomKey=UUID.randomUUID().toString();
-        storageReference= storage.getReference().child("Images/"+randomKey+".jpg");
-        documentReference=collectionReference.document(randomKey);
+
+        documentReference=collectionReference.document();
+        storageReference= storage.getReference().child("Images/"+documentReference.getId());
+
 
 
         save_product.setOnClickListener(x->{
@@ -135,6 +136,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                         product.put("ProductManufacturer",product_manufacturer.getText().toString());
                         product.put("ProductDescription",product_description.getText().toString());
                         product.put("InStock",in_stock.getText().toString());
+                        product.put("PID",documentReference.getId());
                         documentReference.set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -147,8 +149,10 @@ public class AddNewProductActivity extends AppCompatActivity {
                                     product_manufacturer.setText("");
                                     product_description.setText("");
                                     in_stock.setText("");
+                                    progress_bar_new_product.setVisibility(View.INVISIBLE);
                                 }else{
                                     Toast.makeText(AddNewProductActivity.this, "failed to add new product", Toast.LENGTH_SHORT).show();
+                                    progress_bar_new_product.setVisibility(View.INVISIBLE);
                                     try {
                                         throw task.getException();
                                     } catch (Exception e) {
@@ -161,6 +165,7 @@ public class AddNewProductActivity extends AppCompatActivity {
 
                 }else{
                     Toast.makeText(AddNewProductActivity.this, "failed to upload the image", Toast.LENGTH_SHORT).show();
+                    progress_bar_new_product.setVisibility(View.INVISIBLE);
                 }
             }
         });
