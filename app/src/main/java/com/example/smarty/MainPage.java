@@ -83,18 +83,6 @@ public class MainPage extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         });
 
-        items.setHasFixedSize(true);
-        items.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-
-        list=new ArrayList<>();
-        myAdapter=new MyAdapter(getApplicationContext(),list);
-        items.setAdapter(myAdapter);
-
-
-
-
-
     }
 
     @Override

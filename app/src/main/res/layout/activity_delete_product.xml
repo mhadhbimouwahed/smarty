@@ -5,88 +5,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DeleteProductActivity"
-    android:background="@drawable/gradient"
-    >
+    android:background="@drawable/gradient">
+
+
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Deleting a product"
-            android:textColor="#ffffff"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="20sp"/>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="62dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginRight="62dp"
-        android:background="@drawable/blue_border_rounded_cornwe">
-
-
-        <EditText
-            android:id="@+id/search_product_del_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:background="@android:color/transparent"
-            android:fontFamily="sans-serif"
-
-            android:hint="search product to delete"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingLeft="17dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:textCursorDrawable="@drawable/cursor_color"
-            android:textSize="14sp" />
-
-
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="125dp"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/search_delete_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="search"
-            android:background="@drawable/gradient_textview"
-            android:padding="12dp"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#ffffff"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            />
-    </LinearLayout>
-    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="175dp">
-        <LinearLayout
 
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="36.7dp"
+            android:layout_marginRight="62dp"
+            android:background="@drawable/blue_border_rounded_cornwe">
+            <EditText
+                android:id="@+id/search_product_del_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="sans-serif"
+                android:hint="search product"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="17dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/search_product_del_button"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="62dp"
+            android:layout_marginRight="62dp"
+            android:background="@drawable/gradient_textview"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:text="search"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            />
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ListView
-                android:id="@+id/list_delete"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            >
+            <androidx.recyclerview.widget.RecyclerView
 
-            </ListView>
+                android:id="@+id/items_to_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+
+
+
+
+
+
 
 
 </RelativeLayout>
