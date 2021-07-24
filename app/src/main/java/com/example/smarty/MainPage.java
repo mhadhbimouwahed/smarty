@@ -1,52 +1,27 @@
 package com.example.smarty;
 
 import android.content.Intent;
-
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-public class MainPage extends AppCompatActivity {
-    private TextView logout;
+public class MainPage extends AppCompatActivity  {
     private RecyclerView items;
 
     FirebaseAuth firebaseAuth;
@@ -70,9 +45,9 @@ public class MainPage extends AppCompatActivity {
         storage=FirebaseStorage.getInstance();
 
 
-
-        logout=findViewById(R.id.logout);
+        TextView logout = findViewById(R.id.logout);
         items=findViewById(R.id.items);
+
 
 
 
@@ -89,22 +64,22 @@ public class MainPage extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
 
-        if(FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("adminpage@gmail.com")){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            FirebaseAuth.getInstance().signOut();
-        }else{
-            items.setHasFixedSize(true);
-            items.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        FirebaseUser user=firebaseAuth.getCurrentUser();
+        if(user!=null){
+            if(Objects.requireNonNull(user.getEmail()).equals("adminpage@gmail.com")){
+                FirebaseAuth.getInstance().signOut();
 
-            list=new ArrayList<>();
-            myAdapter=new MyAdapter(getApplicationContext(),list);
-            items.setAdapter(myAdapter);
+            }else{
+                items.setHasFixedSize(true);
+                items.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-            collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                list=new ArrayList<>();
+                myAdapter=new MyAdapter(getApplicationContext(),list);
+                items.setAdapter(myAdapter);
+
+                collectionReference.get().addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
-                        for(QueryDocumentSnapshot dataSnapshot:task.getResult()){
+                        for(QueryDocumentSnapshot dataSnapshot: Objects.requireNonNull(task.getResult())){
                             Map<String, Object> data = dataSnapshot.getData();
                             Product product=new Product(data.get("ProductName"),
                                     data.get("ProductPrise"),
@@ -122,15 +97,9 @@ public class MainPage extends AppCompatActivity {
                     }else{
                         Toast.makeText(MainPage.this, "failed to load products", Toast.LENGTH_SHORT).show();
                     }
-                }
-            });
-
-
-
-
-
+                }).addOnFailureListener(fail-> Toast.makeText(this, "failed to load products", Toast.LENGTH_SHORT).show());
+            }
         }
-
 
     }
 

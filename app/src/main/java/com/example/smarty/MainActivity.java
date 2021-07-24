@@ -1,6 +1,5 @@
 package com.example.smarty;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,14 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText email;
     private EditText password;
-    private TextView login;
-    private TextView forgotPassword;
-    private TextView signup;
     private ImageView logo;
     private ProgressBar progressBar;
 
@@ -46,25 +44,19 @@ public class MainActivity extends AppCompatActivity {
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
-        login = findViewById(R.id.login);
-        forgotPassword = findViewById(R.id.forgotPassword);
-        signup = findViewById(R.id.signup);
+        TextView login = findViewById(R.id.login);
+        TextView forgotPassword = findViewById(R.id.forgotPassword);
+        TextView signup = findViewById(R.id.signup);
         progressBar=findViewById(R.id.progress_bar);
         logo=findViewById(R.id.logo);
         animation=AnimationUtils.loadAnimation(getApplicationContext(),R.anim.animation);
 
-        logo.setOnClickListener(x->{
-            logo.startAnimation(animation);
-        });
+        logo.setOnClickListener(x-> logo.startAnimation(animation));
 
 
-        forgotPassword.setOnClickListener(x->{
-            startActivity(new Intent(getApplicationContext(),ForgotPasswordActivity.class));
-        });
+        forgotPassword.setOnClickListener(x-> startActivity(new Intent(getApplicationContext(),ForgotPasswordActivity.class)));
 
-        signup.setOnClickListener(x->{
-            startActivity(new Intent(getApplicationContext(),SignUpActivity.class));
-        });
+        signup.setOnClickListener(x-> startActivity(new Intent(getApplicationContext(),SignUpActivity.class)));
 
 
         login.setOnClickListener(x->{
@@ -91,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user=firebaseAuth.getCurrentUser();
         if(user!=null){
             startActivity(new Intent(getApplicationContext(),MainPage.class));
-            if(user.getEmail().equals("adminpage@gmail.com")){
+            if(Objects.equals(user.getEmail(), "adminpage@gmail.com")){
                 startActivity(new Intent(getApplicationContext(),AdminActivity.class));
             }
         }
@@ -107,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                 .addOnCompleteListener(this,l->{
                    if(l.isSuccessful()){
-                       if(firebaseAuth.getCurrentUser().getEmail().equals("adminpage@gmail.com")){
+                       if(Objects.equals(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail(), "adminpage@gmail.com")){
                            startActivity(new Intent(getApplicationContext(),AdminActivity.class));
                            Toast.makeText(getApplicationContext(),"Welcome admin",Toast.LENGTH_SHORT).show();
                        }else{
@@ -122,12 +114,7 @@ public class MainActivity extends AppCompatActivity {
                        alertDialog.create();
                        alertDialog.setTitle("Error");
                        alertDialog.setMessage("This account doesn't exist");
-                       alertDialog.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-                               dialog.dismiss();
-                           }
-                       });
+                       alertDialog.setPositiveButton("Okay", (dialog, which) -> dialog.dismiss());
                        alertDialog.show();
                        progressBar.setVisibility(View.INVISIBLE);
                    }

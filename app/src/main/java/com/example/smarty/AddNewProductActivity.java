@@ -1,19 +1,17 @@
 package com.example.smarty;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,29 +28,27 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
 
 import static com.example.smarty.R.layout.activity_add_new_product;
 
 public class AddNewProductActivity extends AppCompatActivity {
     private EditText product_name;
     private EditText product_prise;
-    private EditText product_category;
+    private Spinner product_category;
     private ImageView product_image;
     private EditText product_manufacturer;
     private EditText product_description;
-    private EditText in_stock;
-    private TextView save_product;
+    private Spinner in_stock;
     private ProgressBar progress_bar_new_product;
 
-    private FirebaseStorage storage;
     public Uri imageUri;
-    private CollectionReference collectionReference;
     public static final int IMAGE_PICK_CODE=1000 ;
     public static final int PERMISSION_CODE = 1001;
+    private static final String[] category={"","portable computers","smart phones","accessories"};
+    private static final String[] inStock={"","yes","no"};
+
     public StorageReference storageReference;
     public String downloadImageUrl;
     private DocumentReference documentReference;
@@ -70,15 +65,27 @@ public class AddNewProductActivity extends AppCompatActivity {
         product_manufacturer=findViewById(R.id.product_manufacturer);
         product_description=findViewById(R.id.product_description);
         in_stock=findViewById(R.id.in_stock);
-        save_product=findViewById(R.id.save_product);
+        TextView save_product = findViewById(R.id.save_product);
         progress_bar_new_product=findViewById(R.id.progress_bar_new_product);
 
-        collectionReference=FirebaseFirestore.getInstance().collection("Products");
+        CollectionReference collectionReference = FirebaseFirestore.getInstance().collection("Products");
 
-        storage=FirebaseStorage.getInstance();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
 
-        documentReference=collectionReference.document();
+        documentReference= collectionReference.document();
         storageReference= storage.getReference().child("Images/"+documentReference.getId());
+
+        ArrayAdapter<String> adapter_category=new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,category);
+        adapter_category.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        product_category.setAdapter(adapter_category);
+
+        ArrayAdapter<String> adapter_in_stock=new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,inStock);
+        adapter_in_stock.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        in_stock.setAdapter(adapter_in_stock);
+
+        
+
+
 
 
 
@@ -87,14 +94,14 @@ public class AddNewProductActivity extends AppCompatActivity {
                 product_name.setError("This field cannot be empty");
             }else if(product_prise.getText().toString().length()==0){
                 product_prise.setError("This field cannot be empty");
-            }else if(product_category.getText().toString().length()==0){
-                product_category.setError("This Field cannot be empty");
+            }else if(product_category.getSelectedItem().equals(null)){
+                Toast.makeText(this, "you need to select item category first", Toast.LENGTH_LONG).show();
             }else if(product_manufacturer.getText().toString().length()==0){
                 product_manufacturer.setError("This field cannot be empty");
             }else if(product_description.getText().toString().length()==0){
                 product_description.setError("This field cannot be empty");
-            }else if(in_stock.getText().toString().length()==0){
-                in_stock.setError("This field cannot be empty");
+            }else if(in_stock.getSelectedItem().equals(null)){
+                Toast.makeText(this, "you need to select whether the product is in stock or not", Toast.LENGTH_SHORT).show();
             }else if(product_image==null) {
                 Toast.makeText(this, "you need to select an image for the product", Toast.LENGTH_SHORT).show();
             }else{
@@ -132,10 +139,10 @@ public class AddNewProductActivity extends AppCompatActivity {
                         product.put("ProductName",product_name.getText().toString());
                         product.put("ProductImage",downloadUri.toString());
                         product.put("ProductPrise",product_prise.getText().toString());
-                        product.put("ProductCategory",product_category.getText().toString());
+                        product.put("ProductCategory",product_category.getSelectedItem().toString());
                         product.put("ProductManufacturer",product_manufacturer.getText().toString());
                         product.put("ProductDescription",product_description.getText().toString());
-                        product.put("InStock",in_stock.getText().toString());
+                        product.put("InStock",in_stock.getSelectedItem().toString());
                         product.put("PID",documentReference.getId());
                         documentReference.set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -145,10 +152,10 @@ public class AddNewProductActivity extends AppCompatActivity {
                                     product_name.setText("");
                                     product_image.setImageURI(null);
                                     product_prise.setText("");
-                                    product_category.setText("");
+
                                     product_manufacturer.setText("");
                                     product_description.setText("");
-                                    in_stock.setText("");
+
                                     progress_bar_new_product.setVisibility(View.INVISIBLE);
                                 }else{
                                     Toast.makeText(AddNewProductActivity.this, "failed to add new product", Toast.LENGTH_SHORT).show();
@@ -200,16 +207,14 @@ public class AddNewProductActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case PERMISSION_CODE: {
-                if (grantResults.length > 0 && grantResults[0] ==
-                        PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED) {
 
-                    openGallery();
-                } else {
+                openGallery();
+            } else {
 
-                    Toast.makeText(this, "Permission denied...!", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(this, "Permission denied...!", Toast.LENGTH_SHORT).show();
             }
         }
     }

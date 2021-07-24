@@ -19,7 +19,7 @@
             android:textStyle="bold"
             android:text="product name"
             android:layout_margin="10dp"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="#000000"
             />
         <TextView
@@ -29,6 +29,17 @@
             android:padding="5dp"
             android:textStyle="bold"
             android:text="product prise"
+            android:layout_margin="10dp"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            />
+        <TextView
+            android:id="@+id/descriptionDuProduit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:text="description du profuit"
             android:layout_margin="10dp"
             android:textSize="14sp"
             android:textColor="#000000"
@@ -43,7 +54,8 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginStart="225dp"
-        android:layout_marginTop="20dp"/>
+
+        android:layout_marginTop="25dp"/>
 
 
 

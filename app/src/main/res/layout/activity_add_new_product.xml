@@ -91,20 +91,10 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="62dp"
             android:background="@drawable/blue_border_rounded_cornwe">
-            <EditText
+            <Spinner
                 android:id="@+id/product_category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:fontFamily="sans-serif"
-                android:hint="product category"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="17dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="14sp" />
+                android:layout_height="match_parent"/>
             <ProgressBar
                 android:id="@+id/progress_bar_new_product"
                 android:layout_width="wrap_content"
@@ -166,20 +156,10 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="62dp"
             android:background="@drawable/blue_border_rounded_cornwe">
-            <EditText
+            <Spinner
                 android:id="@+id/in_stock"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:fontFamily="sans-serif"
-                android:hint="in stock (yes/no)"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="17dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="14sp" />
+                android:layout_height="45dp"/>
 
 
         </RelativeLayout>

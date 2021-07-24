@@ -1,32 +1,26 @@
 package com.example.smarty;
 
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class DeleteProductActivity extends AppCompatActivity {
 
-    private TextView search_delete_button;
     private EditText search_product_del_text;
     private RecyclerView items_to_delete;
 
@@ -54,7 +48,7 @@ public class DeleteProductActivity extends AppCompatActivity {
         documentReference=collectionReference.document();
 
 
-        search_delete_button=findViewById(R.id.search_product_del_button);
+        TextView search_delete_button = findViewById(R.id.search_product_del_button);
         search_product_del_text=findViewById(R.id.search_product_del_text);
         items_to_delete=findViewById(R.id.items_to_delete);
 
@@ -82,28 +76,25 @@ public class DeleteProductActivity extends AppCompatActivity {
         myAdapter=new MyAdapter(getApplicationContext(),list);
         items_to_delete.setAdapter(myAdapter);
 
-        collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot dataSnapshot:task.getResult()){
-                        Map<String, Object> data = dataSnapshot.getData();
-                        Product product=new Product(data.get("ProductName"),
-                                data.get("ProductPrise"),
-                                data.get("ProductDescription"),
-                                data.get("ProductCategory"),
-                                data.get("ProductImage"),
-                                data.get("ProductManufacturer"),
-                                data.get("InStock"));
+        collectionReference.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                for(QueryDocumentSnapshot dataSnapshot: Objects.requireNonNull(task.getResult())){
+                    Map<String, Object> data = dataSnapshot.getData();
+                    Product product=new Product(data.get("ProductName"),
+                            data.get("ProductPrise"),
+                            data.get("ProductDescription"),
+                            data.get("ProductCategory"),
+                            data.get("ProductImage"),
+                            data.get("ProductManufacturer"),
+                            data.get("InStock"));
 
-                        list.add(product);
-                        myAdapter.notifyDataSetChanged();
+                    list.add(product);
+                    myAdapter.notifyDataSetChanged();
 
-                    }
-
-                }else{
-                    Toast.makeText(getApplicationContext(), "failed to load products", Toast.LENGTH_SHORT).show();
                 }
+
+            }else{
+                Toast.makeText(getApplicationContext(), "failed to load products", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -13,33 +13,22 @@ import static com.example.smarty.R.layout.activity_admin;
 
 public class AdminActivity extends AppCompatActivity {
 
-    private TextView addNewProduct;
-    private TextView modifyProduct;
-    private TextView deleteProduct;
-    private TextView logout_admin;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_admin);
-        addNewProduct=findViewById(R.id.addNewProduct);
-        modifyProduct=findViewById(R.id.modifyProduct);
-        deleteProduct=findViewById(R.id.deleteProduct);
-        logout_admin=findViewById(R.id.logout_admin);
+        TextView addNewProduct = findViewById(R.id.addNewProduct);
+        TextView modifyProduct = findViewById(R.id.modifyProduct);
+        TextView deleteProduct = findViewById(R.id.deleteProduct);
+        TextView logout_admin = findViewById(R.id.logout_admin);
 
 
-        addNewProduct.setOnClickListener(x->{
-            startActivity(new Intent(getApplicationContext(),AddNewProductActivity.class));
-        });
+        addNewProduct.setOnClickListener(x-> startActivity(new Intent(getApplicationContext(),AddNewProductActivity.class)));
 
 
-        modifyProduct.setOnClickListener(x->{
-            startActivity(new Intent(getApplicationContext(),ModifyProductActivity.class));
-        });
+        modifyProduct.setOnClickListener(x-> startActivity(new Intent(getApplicationContext(),ModifyProductActivity.class)));
 
-        deleteProduct.setOnClickListener(x->{
-            startActivity(new Intent(getApplicationContext(),DeleteProductActivity.class));
-        });
+        deleteProduct.setOnClickListener(x-> startActivity(new Intent(getApplicationContext(),DeleteProductActivity.class)));
         
         logout_admin.setOnClickListener(x->{
             Toast.makeText(this, "Logging out", Toast.LENGTH_SHORT).show();
