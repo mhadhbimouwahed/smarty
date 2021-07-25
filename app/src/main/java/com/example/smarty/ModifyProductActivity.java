@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ModifyProductActivity extends AppCompatActivity {
+
+
     private EditText search_product_text;
     private RecyclerView items_to_modify;
 
@@ -29,6 +31,9 @@ public class ModifyProductActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
     CollectionReference collectionReference;
     DocumentReference documentReference;
+    
+    ArrayList<Product> list;
+    ModifyAdapter modifyAdapter;
 
 
     @Override
@@ -60,7 +65,31 @@ public class ModifyProductActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        
+        items_to_modify.setHasFixedSize(true);
+        items_to_modify.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        list=new ArrayList<>();
+        modifyAdapter=new ModifyAdapter(getApplicationContext(),list);
+        
+        items_to_modify.setAdapter(modifyAdapter);
+        collectionReference.get().addOnCompleteListener(task->{
+           if(task.isSuccessful()){
+               for(QueryDocumentSnapshot documentSnapshot:task.getResult()){
+                   Map<String,Object> data=documentSnapshot.getData();
+                   Product product=new Product(data.get("ProductName"),
+                           data.get("ProductPrise"),
+                           data.get("ProductDescription"),
+                           data.get("ProductCategory"),
+                           data.get("ProductImage"),
+                           data.get("ProductManufacturer"),
+                           data.get("InStock"));
+                   list.add(product);
+                   modifyAdapter.notifyDataSetChanged();
+               }
+           }
+        }).addOnFailureListener(fail->{
+            Toast.makeText(this, "failed to load products", Toast.LENGTH_SHORT).show();
+        });
 
 
     }
