@@ -12,11 +12,15 @@
     tools:context=".MainActivity">
 
 
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/imageedit_1_3498649053"
         android:orientation="vertical">
+
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -129,6 +133,18 @@
             android:textColor="#ffffff"
             android:textSize="14sp"
             />
+        <TextView
+            android:id="@+id/skipForNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif"
+
+            android:text="Skip for now"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -161,7 +177,9 @@
 
 
 
+            </LinearLayout>
+
+
         </LinearLayout>
 
-    </LinearLayout>
 </RelativeLayout>

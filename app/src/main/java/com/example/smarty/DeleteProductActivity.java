@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,8 +32,7 @@ public class DeleteProductActivity extends AppCompatActivity {
     CollectionReference collectionReference;
     DocumentReference documentReference;
 
-    ArrayList<Product> list;
-    MyAdapter myAdapter;
+
 
 
 
@@ -66,36 +66,7 @@ public class DeleteProductActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        items_to_delete.setHasFixedSize(true);
-        items_to_delete.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        list=new ArrayList<>();
-        myAdapter=new MyAdapter(getApplicationContext(),list);
-        items_to_delete.setAdapter(myAdapter);
 
-        collectionReference.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                for(QueryDocumentSnapshot dataSnapshot: Objects.requireNonNull(task.getResult())){
-                    Map<String, Object> data = dataSnapshot.getData();
-                    Product product=new Product(data.get("ProductName"),
-                            data.get("ProductPrise"),
-                            data.get("ProductDescription"),
-                            data.get("ProductCategory"),
-                            data.get("ProductImage"),
-                            data.get("ProductManufacturer"),
-                            data.get("InStock"));
 
-                    list.add(product);
-                    myAdapter.notifyDataSetChanged();
-
-                }
-
-            }else{
-                Toast.makeText(getApplicationContext(), "failed to load products", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 }

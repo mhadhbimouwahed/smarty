@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,11 +25,11 @@ public class ModifyProductActivity extends AppCompatActivity {
     private RecyclerView items_to_modify;
 
 
+    FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
     CollectionReference collectionReference;
     DocumentReference documentReference;
-    ArrayList<Product> list;
-    MyAdapter myAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class ModifyProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_modify_product);
 
         firestore=FirebaseFirestore.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
         collectionReference=firestore.collection("Products/");
         documentReference=collectionReference.document();
 
@@ -57,31 +60,10 @@ public class ModifyProductActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        items_to_modify.setHasFixedSize(true);
-        items_to_modify.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        list=new ArrayList<>();
-        myAdapter=new MyAdapter(getApplicationContext(),list);
-        items_to_modify.setAdapter(myAdapter);
 
-        collectionReference.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                for(QueryDocumentSnapshot documentSnapshot: Objects.requireNonNull(task.getResult())){
-                    Map<String,Object> data=documentSnapshot.getData();
-                    Product product=new Product(data.get("ProductName"),
-                            data.get("ProductPrise"),
-                            data.get("ProductDescription"),
-                            data.get("ProductCategory"),
-                            data.get("ProductImage"),
-                            data.get("ProductManufacturer"),
-                            data.get("InStock"));
-                    list.add(product);
-                    myAdapter.notifyDataSetChanged();
-                }
-            }else {
-                Toast.makeText(ModifyProductActivity.this, "failed to load products", Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
+
+
 }

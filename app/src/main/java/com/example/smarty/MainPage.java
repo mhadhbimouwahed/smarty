@@ -29,8 +29,9 @@ public class MainPage extends AppCompatActivity  {
     FirebaseStorage storage;
     DocumentReference documentReference;
     CollectionReference collectionReference;
+
     ArrayList<Product> list;
-    MyAdapter myAdapter;
+    ClientAdapter myAdapter;
 
 
     @Override
@@ -67,14 +68,16 @@ public class MainPage extends AppCompatActivity  {
         FirebaseUser user=firebaseAuth.getCurrentUser();
         if(user!=null){
             if(Objects.requireNonNull(user.getEmail()).equals("adminpage@gmail.com")){
-                FirebaseAuth.getInstance().signOut();
+                firebaseAuth.signOut();
 
             }else{
+
                 items.setHasFixedSize(true);
                 items.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                 list=new ArrayList<>();
-                myAdapter=new MyAdapter(getApplicationContext(),list);
+                myAdapter= new ClientAdapter(getApplicationContext(),list);
+
                 items.setAdapter(myAdapter);
 
                 collectionReference.get().addOnCompleteListener(task -> {
@@ -91,6 +94,7 @@ public class MainPage extends AppCompatActivity  {
 
                             list.add(product);
                             myAdapter.notifyDataSetChanged();
+
 
                         }
 

@@ -11,6 +11,7 @@ public class Product {
     String productImage;
     String productManufacturer;
     String inStock;
+    private boolean expanded;
 
     public Product(Object productName, Object productPrise, Object productDescription, Object productCategory, Object productImage, Object productManufacturer, Object inStock) {
         this.productName = (String) productName;
@@ -20,11 +21,19 @@ public class Product {
         this.productImage = (String) productImage;
         this.productManufacturer = (String) productManufacturer;
         this.inStock = (String) inStock;
+        this.expanded=false;
     }
     public Product(){
 
     }
 
+    public boolean isExpanded(){
+        return expanded;
+    }
+
+    public void setIsExpanded(boolean expanded){
+        this.expanded=expanded;
+    }
 
 
 
