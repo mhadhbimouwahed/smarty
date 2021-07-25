@@ -24,6 +24,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
     static ArrayList<Product> list;
 
     public ClientAdapter(Context context,ArrayList<Product> list){
+
         this.context=context;
         this.list=list;
     }
