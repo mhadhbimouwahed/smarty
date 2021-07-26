@@ -7,16 +7,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -64,6 +68,38 @@ public class ModifyProductActivity extends AppCompatActivity {
     }
 
     private void modifyProduct() {
+        loadingProducts.setVisibility(View.VISIBLE);
+        items_to_modify.setHasFixedSize(true);
+        items_to_modify.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        list=new ArrayList<>();
+        modifyAdapter=new ModifyAdapter(getApplicationContext(),list);
+        items_to_modify.setAdapter(modifyAdapter);
+
+        collectionReference.get().addOnCompleteListener(task->{
+            if(task.isSuccessful()){
+                for(QueryDocumentSnapshot documentSnapshot:task.getResult()){
+                    Map<String,Object> data=documentSnapshot.getData();
+                    if(data.get("ProductName").equals(search_product_text.getText().toString())){
+                        Product product=new Product(data.get("ProductName"),
+                                data.get("ProductPrise"),
+                                data.get("ProductDescription"),
+                                data.get("ProductCategory"),
+                                data.get("ProductImage"),
+                                data.get("ProductManufacturer"),
+                                data.get("InStock"));
+                        list.add(product);
+                        modifyAdapter.notifyDataSetChanged();
+                        loadingProducts.setVisibility(View.GONE);
+                    }else{
+                        Toast.makeText(this, "product doesn't exist", Toast.LENGTH_SHORT).show();
+                        loadingProducts.setVisibility(View.GONE);
+                    }
+                }
+            }
+        }).addOnFailureListener(fail->{
+            Toast.makeText(this, "failed to load products ", Toast.LENGTH_SHORT).show();
+        });
+
     }
 
     @Override
