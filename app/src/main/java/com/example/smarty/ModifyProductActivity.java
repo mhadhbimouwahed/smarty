@@ -1,7 +1,9 @@
 package com.example.smarty;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ public class ModifyProductActivity extends AppCompatActivity {
 
     private EditText search_product_text;
     private RecyclerView items_to_modify;
+    private ProgressBar loadingProducts;
 
 
     FirebaseAuth firebaseAuth;
@@ -49,6 +52,7 @@ public class ModifyProductActivity extends AppCompatActivity {
         TextView search_product_button = findViewById(R.id.search_product_button);
         search_product_text=findViewById(R.id.search_product_text);
         items_to_modify=findViewById(R.id.items_to_modify);
+        loadingProducts=findViewById(R.id.loadingProducts);
 
         search_product_button.setOnClickListener(x->{
             if(search_product_text.getText().toString().length()==0){
@@ -65,7 +69,7 @@ public class ModifyProductActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        
+        loadingProducts.setVisibility(View.VISIBLE);
         items_to_modify.setHasFixedSize(true);
         items_to_modify.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         list=new ArrayList<>();
@@ -85,14 +89,18 @@ public class ModifyProductActivity extends AppCompatActivity {
                            data.get("InStock"));
                    list.add(product);
                    modifyAdapter.notifyDataSetChanged();
+                   loadingProducts.setVisibility(View.GONE);
                }
            }
         }).addOnFailureListener(fail->{
             Toast.makeText(this, "failed to load products", Toast.LENGTH_SHORT).show();
         });
-
-
     }
 
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        loadingProducts.setVisibility(View.GONE);
+    }
 }

@@ -2,6 +2,8 @@ package com.example.smarty;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +24,10 @@ import java.util.Map;
 import java.util.Objects;
 
 public class MainPage extends AppCompatActivity  {
-    private RecyclerView items;
 
+
+    private RecyclerView items;
+    private ProgressBar loadingProducts_mainPage;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
     FirebaseStorage storage;
@@ -48,6 +52,7 @@ public class MainPage extends AppCompatActivity  {
 
         TextView logout = findViewById(R.id.logout);
         items=findViewById(R.id.items);
+        loadingProducts_mainPage=findViewById(R.id.loadingProducts_mainPage);
 
 
 
@@ -71,7 +76,7 @@ public class MainPage extends AppCompatActivity  {
                 firebaseAuth.signOut();
 
             }else{
-
+                loadingProducts_mainPage.setVisibility(View.VISIBLE);
                 items.setHasFixedSize(true);
                 items.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
@@ -91,7 +96,7 @@ public class MainPage extends AppCompatActivity  {
                                     data.get("ProductImage"),
                                     data.get("ProductManufacturer"),
                                     data.get("InStock"));
-
+                            loadingProducts_mainPage.setVisibility(View.GONE);
                             list.add(product);
                             myAdapter.notifyDataSetChanged();
 
@@ -104,8 +109,11 @@ public class MainPage extends AppCompatActivity  {
                 }).addOnFailureListener(fail-> Toast.makeText(this, "failed to load products", Toast.LENGTH_SHORT).show());
             }
         }
-
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        loadingProducts_mainPage.setVisibility(View.GONE);
+    }
 }
