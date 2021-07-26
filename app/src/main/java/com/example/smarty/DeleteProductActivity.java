@@ -31,6 +31,9 @@ public class DeleteProductActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     CollectionReference collectionReference;
     DocumentReference documentReference;
+    
+    ArrayList<Product> list;
+    DeleteAdapter deleteAdapter;
 
 
 
@@ -66,7 +69,34 @@ public class DeleteProductActivity extends AppCompatActivity {
 
     }
 
-
-
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        
+        items_to_delete.setHasFixedSize(true);
+        items_to_delete.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        list=new ArrayList<>();
+        deleteAdapter=new DeleteAdapter(getApplicationContext(),list);
+        
+        items_to_delete.setAdapter(deleteAdapter);
+        collectionReference.get().addOnCompleteListener(task->{
+            if(task.isSuccessful()){
+                for(QueryDocumentSnapshot documentSnapshot:task.getResult()){
+                    Map<String,Object> data=documentSnapshot.getData();
+                    Product product=new Product(data.get("ProductName"),
+                            data.get("ProductPrise"),
+                            data.get("ProductDescription"),
+                            data.get("ProductCategory"),
+                            data.get("ProductImage"),
+                            data.get("ProductManufacturer"),
+                            data.get("InStock"));
+                    list.add(product);
+                    deleteAdapter.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(fail->{
+            Toast.makeText(this, "failed to load products", Toast.LENGTH_SHORT).show();
+        });
+        
+    }
 }
