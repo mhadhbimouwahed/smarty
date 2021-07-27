@@ -89,7 +89,8 @@ public class MainPage extends AppCompatActivity  {
                     if(task.isSuccessful()){
                         for(QueryDocumentSnapshot dataSnapshot: Objects.requireNonNull(task.getResult())){
                             Map<String, Object> data = dataSnapshot.getData();
-                            Product product=new Product(data.get("ProductName"),
+                            Product product=new Product(data.get("PID"),
+                                    data.get("ProductName"),
                                     data.get("ProductPrise"),
                                     data.get("ProductDescription"),
                                     data.get("ProductCategory"),

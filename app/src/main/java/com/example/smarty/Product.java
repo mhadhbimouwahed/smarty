@@ -13,7 +13,8 @@ public class Product {
     String inStock;
     private boolean expanded;
 
-    public Product(Object productName, Object productPrise, Object productDescription, Object productCategory, Object productImage, Object productManufacturer, Object inStock) {
+    public Product(Object productID,Object productName, Object productPrise, Object productDescription, Object productCategory, Object productImage, Object productManufacturer, Object inStock) {
+        this.productID=(String) productID;
         this.productName = (String) productName;
         this.productPrise = (String) productPrise;
         this.productDescription = (String) productDescription;

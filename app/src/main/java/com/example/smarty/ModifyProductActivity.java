@@ -80,7 +80,8 @@ public class ModifyProductActivity extends AppCompatActivity {
                 for(QueryDocumentSnapshot documentSnapshot:task.getResult()){
                     Map<String,Object> data=documentSnapshot.getData();
                     if(data.get("ProductName").equals(search_product_text.getText().toString())){
-                        Product product=new Product(data.get("ProductName"),
+                        Product product=new Product(data.get("PID"),
+                                data.get("ProductName"),
                                 data.get("ProductPrise"),
                                 data.get("ProductDescription"),
                                 data.get("ProductCategory"),
@@ -116,7 +117,8 @@ public class ModifyProductActivity extends AppCompatActivity {
            if(task.isSuccessful()){
                for(QueryDocumentSnapshot documentSnapshot:task.getResult()){
                    Map<String,Object> data=documentSnapshot.getData();
-                   Product product=new Product(data.get("ProductName"),
+                   Product product=new Product(data.get("PID"),
+                           data.get("ProductName"),
                            data.get("ProductPrise"),
                            data.get("ProductDescription"),
                            data.get("ProductCategory"),

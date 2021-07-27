@@ -25,6 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TimerTask;
 
 public class DeleteProductActivity extends AppCompatActivity {
 
@@ -69,54 +70,53 @@ public class DeleteProductActivity extends AppCompatActivity {
                 search_product_del_text.setError("This field cannot be empty");
 
             }else{
-                deleteProduct();
-            }
-        });
-
-    }
-
-    private void deleteProduct(){
-        loadingProducts_deleteProduct.setVisibility(View.VISIBLE);
+                loadingProducts_deleteProduct.setVisibility(View.VISIBLE);
 
 
-        items_to_delete.setHasFixedSize(true);
-        items_to_delete.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        list=new ArrayList<>();
-        deleteAdapter=new DeleteAdapter(getApplicationContext(),list);
+                items_to_delete.setHasFixedSize(true);
+                items_to_delete.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                list=new ArrayList<>();
+                deleteAdapter=new DeleteAdapter(getApplicationContext(),list);
 
-        items_to_delete.setAdapter(deleteAdapter);
+                items_to_delete.setAdapter(deleteAdapter);
 
-        collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot documentSnapshot:task.getResult()){
-                        Map<String,Object> data=documentSnapshot.getData();
-                        if(data.get("ProductName").equals(search_product_del_text.getText().toString())){
-                            Product product=new Product(data.get("ProductName"),
-                                    data.get("ProductPrise"),
-                                    data.get("ProductDescription"),
-                                    data.get("ProductCategory"),
-                                    data.get("ProductImage"),
-                                    data.get("ProductManufacturer"),
-                                    data.get("InStock"));
-                            list.add(product);
-                            deleteAdapter.notifyDataSetChanged();
-                            loadingProducts_deleteProduct.setVisibility(View.GONE);
-                        }else{
-                            Toast.makeText(DeleteProductActivity.this, "product doesn't exist", Toast.LENGTH_SHORT).show();
-                            loadingProducts_deleteProduct.setVisibility(View.GONE);
+                collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot documentSnapshot:task.getResult()){
+
+                                Map<String,Object> data=documentSnapshot.getData();
+                                if(data.get("ProductName").equals(search_product_del_text.getText().toString())){
+                                    Product product=new Product(data.get("PID"),
+                                            data.get("ProductName"),
+                                            data.get("ProductPrise"),
+                                            data.get("ProductDescription"),
+                                            data.get("ProductCategory"),
+                                            data.get("ProductImage"),
+                                            data.get("ProductManufacturer"),
+                                            data.get("InStock"));
+                                    list.add(product);
+                                    deleteAdapter.notifyDataSetChanged();
+                                    loadingProducts_deleteProduct.setVisibility(View.GONE);
+                                }else{
+                                    Toast.makeText(DeleteProductActivity.this, "product doesn't exist", Toast.LENGTH_SHORT).show();
+                                    loadingProducts_deleteProduct.setVisibility(View.GONE);
+                                }
+                            }
                         }
                     }
-                }
+                }).addOnFailureListener(fail->{
+                    Toast.makeText(this, "failed to load products", Toast.LENGTH_SHORT).show();
+                    loadingProducts_deleteProduct.setVisibility(View.GONE);
+                });
             }
-        }).addOnFailureListener(fail->{
-            Toast.makeText(this, "failed to load products", Toast.LENGTH_SHORT).show();
-            loadingProducts_deleteProduct.setVisibility(View.GONE);
         });
 
-
     }
+
+
 
     @Override
     protected void onStart() {
@@ -133,7 +133,8 @@ public class DeleteProductActivity extends AppCompatActivity {
             if(task.isSuccessful()){
                 for(QueryDocumentSnapshot documentSnapshot:task.getResult()){
                     Map<String,Object> data=documentSnapshot.getData();
-                    Product product=new Product(data.get("ProductName"),
+                    Product product=new Product(data.get("PID"),
+                            data.get("ProductName"),
                             data.get("ProductPrise"),
                             data.get("ProductDescription"),
                             data.get("ProductCategory"),
@@ -156,4 +157,6 @@ public class DeleteProductActivity extends AppCompatActivity {
         super.onStop();
         loadingProducts_deleteProduct.setVisibility(View.GONE);
     }
+
+
 }
