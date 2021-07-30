@@ -24,6 +24,17 @@ public class Product {
         this.inStock = (String) inStock;
         this.expanded=false;
     }
+    public Product(Object productName, Object productPrise, Object productDescription, Object productCategory, Object productImage, Object productManufacturer, Object inStock) {
+
+        this.productName = (String) productName;
+        this.productPrise = (String) productPrise;
+        this.productDescription = (String) productDescription;
+        this.productCategory = (String) productCategory;
+        this.productImage = (String) productImage;
+        this.productManufacturer = (String) productManufacturer;
+        this.inStock = (String) inStock;
+        this.expanded=false;
+    }
     public Product(){
 
     }

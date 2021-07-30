@@ -152,7 +152,8 @@ public class AddNewProductActivity extends AppCompatActivity {
                                     product_name.setText("");
                                     product_image.setImageURI(null);
                                     product_prise.setText("");
-
+                                    product_category.setAdapter(null);
+                                    in_stock.setAdapter(null);
                                     product_manufacturer.setText("");
                                     product_description.setText("");
 

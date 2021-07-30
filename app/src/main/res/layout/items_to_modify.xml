@@ -26,17 +26,6 @@
             android:textColor="#ffffff"
             />
         <TextView
-            android:id="@+id/nomDuProduit_modify"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:textStyle="bold"
-            android:text="product name"
-            android:layout_margin="5dp"
-            android:textSize="20sp"
-            android:textColor="#000000"
-            />
-        <TextView
             android:id="@+id/idDuProduit_modify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,6 +36,18 @@
             android:textSize="12sp"
             android:textColor="#000000"
             />
+        <TextView
+            android:id="@+id/nomDuProduit_modify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:text="product name"
+            android:layout_margin="5dp"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            />
+
 
         <TextView
             android:id="@+id/prixDuProduit_modify"
