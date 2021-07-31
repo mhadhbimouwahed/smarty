@@ -34,6 +34,7 @@ public class MainPage extends AppCompatActivity  {
     DocumentReference documentReference;
     CollectionReference collectionReference;
 
+
     ArrayList<Product> list;
     ClientAdapter myAdapter;
 
