@@ -96,7 +96,8 @@ public class DeleteProductActivity extends AppCompatActivity {
                                             data.get("ProductCategory"),
                                             data.get("ProductImage"),
                                             data.get("ProductManufacturer"),
-                                            data.get("InStock"));
+                                            data.get("InStock"),
+                                            data.get("ProductDiscount"));
                                     list.add(product);
                                     deleteAdapter.notifyDataSetChanged();
                                     loadingProducts_deleteProduct.setVisibility(View.GONE);
@@ -140,7 +141,8 @@ public class DeleteProductActivity extends AppCompatActivity {
                             data.get("ProductCategory"),
                             data.get("ProductImage"),
                             data.get("ProductManufacturer"),
-                            data.get("InStock"));
+                            data.get("InStock"),
+                            data.get("ProductDiscount"));
                     list.add(product);
                     deleteAdapter.notifyDataSetChanged();
                     loadingProducts_deleteProduct.setVisibility(View.GONE);

@@ -11,9 +11,10 @@ public class Product {
     String productImage;
     String productManufacturer;
     String inStock;
+    String discount;
     private boolean expanded;
 
-    public Product(Object productID,Object productName, Object productPrise, Object productDescription, Object productCategory, Object productImage, Object productManufacturer, Object inStock) {
+    public Product(Object productID,Object productName, Object productPrise, Object productDescription, Object productCategory, Object productImage, Object productManufacturer, Object inStock,Object discount) {
         this.productID=(String) productID;
         this.productName = (String) productName;
         this.productPrise = (String) productPrise;
@@ -22,7 +23,11 @@ public class Product {
         this.productImage = (String) productImage;
         this.productManufacturer = (String) productManufacturer;
         this.inStock = (String) inStock;
+        this.discount=(String) discount;
         this.expanded=false;
+    }
+    public String getDiscount(){
+        return discount;
     }
     public Product(Object productName, Object productPrise, Object productDescription, Object productCategory, Object productImage, Object productManufacturer, Object inStock) {
 

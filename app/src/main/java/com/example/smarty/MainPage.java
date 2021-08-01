@@ -97,7 +97,8 @@ public class MainPage extends AppCompatActivity  {
                                     data.get("ProductCategory"),
                                     data.get("ProductImage"),
                                     data.get("ProductManufacturer"),
-                                    data.get("InStock"));
+                                    data.get("InStock"),
+                                    data.get("ProductDiscount"));
                             loadingProducts_mainPage.setVisibility(View.GONE);
                             list.add(product);
                             myAdapter.notifyDataSetChanged();

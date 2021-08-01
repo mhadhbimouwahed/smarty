@@ -48,6 +48,8 @@ public class ModifyAdapter extends RecyclerView.Adapter<ModifyAdapter.ModifyView
         holder.nomDuProduit_modify.setText(product.getProductName());
         holder.prixDuProduit_modify.setText(product.getProductPrise());
         holder.descriptionDuProduit_modify.setText(product.getProductDescription());
+        holder.constructeurDuProduit_modify.setText(product.getProductManufacturer());
+        holder.promotionDuProduit_modify.setText(product.getDiscount());
         Glide.with(context).load(product.getProductImage()).into(holder.imageDuProduit_modify);
         boolean isExpanded=list.get(position).isExpanded();
         holder.expandable_layout_modify.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
@@ -68,6 +70,8 @@ public class ModifyAdapter extends RecyclerView.Adapter<ModifyAdapter.ModifyView
         TextView prixDuProduit_modify;
         TextView descriptionDuProduit_modify;
         TextView modifyButton;
+        TextView promotionDuProduit_modify;
+        TextView constructeurDuProduit_modify;
         LinearLayout expandable_layout_modify;
         LinearLayout expandItem_modify;
 
@@ -80,9 +84,11 @@ public class ModifyAdapter extends RecyclerView.Adapter<ModifyAdapter.ModifyView
             imageDuProduit_modify=itemView.findViewById(R.id.imageDuProduit_modify);
             prixDuProduit_modify=itemView.findViewById(R.id.prixDuProduit_modify);
             modifyButton=itemView.findViewById(R.id.modifyButton);
+            constructeurDuProduit_modify=itemView.findViewById(R.id.constructeurDuProduit_modify);
             descriptionDuProduit_modify=itemView.findViewById(R.id.descriptionDuProduit_modify);
             expandable_layout_modify=itemView.findViewById(R.id.expandable_layout_modify);
             expandItem_modify=itemView.findViewById(R.id.expandItem_modify);
+            promotionDuProduit_modify=itemView.findViewById(R.id.promotionDuProduit_modify);
 
 
 

@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_add_new_product.xml" value="0.4" />
+        <entry key="app/src/main/res/layout/activity_modify_page.xml" value="0.22314814814814815" />
         <entry key="app/src/main/res/layout/item.xml" value="0.4" />
         <entry key="app/src/main/res/layout/items_to_delete.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/items_to_modify.xml" value="0.321875" />

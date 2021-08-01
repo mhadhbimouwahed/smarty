@@ -42,14 +42,15 @@ public class ModifyPageActivity extends AppCompatActivity {
     private ImageView product_image_modify;
     private EditText product_manufacturer_modify;
     private EditText product_description_modify;
+    private EditText product_discount_modify;
     private Spinner in_stock_modify;
     private ProgressBar progress_bar_new_product_modify;
 
     public Uri imageUri;
     public static final int IMAGE_PICK_CODE=1000 ;
     public static final int PERMISSION_CODE = 1001;
-    private static final String[] categories={"","portable computers","smart phones","accessories"};
-    private static final String[] instock_yes_no={"","yes","no"};
+    private static final String[] categories={"product category","portable computers","smart phones","accessories"};
+    private static final String[] instock_yes_no={"in stock?","yes","no"};
 
     public StorageReference storageReference;
     public FirebaseFirestore firestore;
@@ -73,6 +74,7 @@ public class ModifyPageActivity extends AppCompatActivity {
         product_manufacturer_modify=findViewById(R.id.product_manufacturer_modify);
         product_description_modify=findViewById(R.id.product_description_modify);
         in_stock_modify=findViewById(R.id.in_stock_modify);
+        product_discount_modify=findViewById(R.id.product_discount_modify);
         
         
         TextView modify_product_button = findViewById(R.id.modify_product_button);
@@ -109,6 +111,8 @@ public class ModifyPageActivity extends AppCompatActivity {
                 product_description_modify.setError("This field cannot be empty");
             }else if(in_stock_modify.getSelectedItem().equals(null)){
                 Toast.makeText(this, "you need to specify if the product is in stock or not", Toast.LENGTH_SHORT).show();
+            }else if(product_discount_modify.getText().toString().length()==0){
+                product_discount_modify.setError("This field cannot be empty");
             }else{
                 modify_product();
             }
@@ -135,6 +139,7 @@ public class ModifyPageActivity extends AppCompatActivity {
                 product_modify.put("ProductDescription",product_description_modify.getText().toString());
                 product_modify.put("InStock",in_stock_modify.getSelectedItem().toString());
                 product_modify.put("PID",getIntent().getStringExtra("ID"));
+                product_modify.put("ProductDiscount",product_discount_modify.getText().toString());
                 collectionReference.document(getIntent().getStringExtra("ID")).update(product_modify).addOnCompleteListener(tsk->{
                     if(tsk.isSuccessful()){
                         Toast.makeText(this, "product updated successfully", Toast.LENGTH_SHORT).show();
@@ -165,6 +170,7 @@ public class ModifyPageActivity extends AppCompatActivity {
             product_modify.put("ProductDescription",product_description_modify.getText().toString());
             product_modify.put("InStock",in_stock_modify.getSelectedItem().toString());
             product_modify.put("PID",documentReference.getId());
+            product_modify.put("ProductDiscount",product_discount_modify.getText().toString());
 
             collectionReference.document(getIntent().getStringExtra("ID")).update(product_modify).addOnCompleteListener(task->{
                 if(task.isSuccessful()){
@@ -176,6 +182,7 @@ public class ModifyPageActivity extends AppCompatActivity {
                     in_stock_modify.setAdapter(null);
                     product_manufacturer_modify.setText("");
                     product_description_modify.setText("");
+                    product_discount_modify.setText("");
                 }
             }).addOnFailureListener(failure->{
                 Toast.makeText(this, "failed to update the product", Toast.LENGTH_SHORT).show();
@@ -243,6 +250,8 @@ public class ModifyPageActivity extends AppCompatActivity {
                 product_prise_modify.setText(data.get("ProductPrise").toString());
                 product_manufacturer_modify.setText(data.get("ProductPrise").toString());
                 product_description_modify.setText(data.get("ProductDescription").toString());
+                product_discount_modify.setText(data.get("ProductDiscount").toString());
+                
 
                 Glide.with(getApplicationContext()).load(data.get("ProductImage")).into(product_image_modify);
                 progress_bar_new_product_modify.setVisibility(View.INVISIBLE);

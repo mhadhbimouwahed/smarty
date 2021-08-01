@@ -46,6 +46,8 @@ public class DeleteAdapter extends RecyclerView.Adapter<DeleteAdapter.DeleteView
         holder.prixDuProduit_delete.setText(product.getProductPrise());
         holder.descriptionDuProduit_delete.setText(product.getProductDescription());
         holder.idDuProduit_delete.setText(product.getProductID());
+        holder.promotionDuProduit_delete.setText(product.getDiscount());
+        holder.constructeurDuProduit_delete.setText(product.getProductManufacturer());
         Glide.with(context).load(product.getProductImage()).into(holder.imageDuProduit_delete);
         boolean isExpanded=list_delete.get(position).isExpanded();
         holder.expandable_layout_delete.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
@@ -63,8 +65,10 @@ public class DeleteAdapter extends RecyclerView.Adapter<DeleteAdapter.DeleteView
         TextView descriptionDuProduit_delete;
         TextView deleteButton;
         TextView idDuProduit_delete;
+        TextView promotionDuProduit_delete;
         LinearLayout expandable_layout_delete;
         LinearLayout expandItem_delete;
+        TextView constructeurDuProduit_delete;
         FirebaseStorage storage;
         CollectionReference collectionReference;
         FirebaseFirestore firestore;
@@ -78,8 +82,10 @@ public class DeleteAdapter extends RecyclerView.Adapter<DeleteAdapter.DeleteView
             prixDuProduit_delete=itemView.findViewById(R.id.prixDuProduit_delete);
             descriptionDuProduit_delete=itemView.findViewById(R.id.descriptionDuProduit_delete);
             deleteButton=itemView.findViewById(R.id.deleteButton);
+            constructeurDuProduit_delete=itemView.findViewById(R.id.constructeurDuProduit_delete);
             expandable_layout_delete=itemView.findViewById(R.id.expandable_layout_delete);
             expandItem_delete=itemView.findViewById(R.id.expandItem_delete);
+            promotionDuProduit_delete=itemView.findViewById(R.id.promotionDuProduit_delete);
             idDuProduit_delete=itemView.findViewById(R.id.idDuProduit_delete);
 
             storage=FirebaseStorage.getInstance();

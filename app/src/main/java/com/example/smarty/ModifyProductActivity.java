@@ -87,7 +87,8 @@ public class ModifyProductActivity extends AppCompatActivity {
                                 data.get("ProductCategory"),
                                 data.get("ProductImage"),
                                 data.get("ProductManufacturer"),
-                                data.get("InStock"));
+                                data.get("InStock"),
+                                data.get("ProductDiscount"));
                         list.add(product);
                         modifyAdapter.notifyDataSetChanged();
                         loadingProducts.setVisibility(View.GONE);
@@ -124,7 +125,8 @@ public class ModifyProductActivity extends AppCompatActivity {
                            data.get("ProductCategory"),
                            data.get("ProductImage"),
                            data.get("ProductManufacturer"),
-                           data.get("InStock"));
+                           data.get("InStock"),
+                           data.get("ProductDiscount"));
                    list.add(product);
                    modifyAdapter.notifyDataSetChanged();
                    loadingProducts.setVisibility(View.GONE);

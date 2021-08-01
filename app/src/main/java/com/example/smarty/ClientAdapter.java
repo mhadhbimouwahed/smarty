@@ -54,6 +54,9 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
         holder.nomDuProduit.setText(product.getProductName());
         holder.prixDuProduit.setText(product.getProductPrise());
         holder.descriptionDuProduit.setText(product.getProductDescription());
+        holder.id_produit.setText(product.getProductID());
+        holder.constructeurDuProduit.setText(product.getProductManufacturer());
+        holder.promotionDuProduit.setText(product.getDiscount());
         Glide.with(context)
                 .load(product.getProductImage())
                 .into(holder.imageDuProduit);
@@ -78,11 +81,11 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
         TextView descriptionDuProduit;
         TextView addToCart;
         TextView id_produit;
+        TextView constructeurDuProduit;
+        TextView promotionDuProduit;
         LinearLayout expandable_layout;
         LinearLayout expandItem;
-        FirebaseAuth firebaseAuth;
-        CollectionReference cartReference;
-        DocumentReference documentReference;
+
 
 
 
@@ -95,12 +98,13 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
             descriptionDuProduit=itemView.findViewById(R.id.descriptionDuProduit);
             addToCart=itemView.findViewById(R.id.addToCartButton);
             id_produit=itemView.findViewById(R.id.idDuProduit_cart);
+            promotionDuProduit=itemView.findViewById(R.id.promotionDuProduit);
+            constructeurDuProduit=itemView.findViewById(R.id.constructeurDuProduit);
             expandable_layout=itemView.findViewById(R.id.expandable_layout);
             expandItem=itemView.findViewById(R.id.expandItem);
 
-            firebaseAuth=FirebaseAuth.getInstance();
-            cartReference= FirebaseFirestore.getInstance().collection("ClientCart");
-            documentReference=cartReference.document(id_produit.getText().toString());
+
+
 
 
 
@@ -111,29 +115,11 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
                 notifyItemChanged(getAdapterPosition());
             });
 
+
             addToCart.setOnClickListener(x->{
 
-                FirebaseUser user=firebaseAuth.getCurrentUser();
-                if(user!=null){
-                    if(!user.getEmail().equals("adminpage@gmail.com")){
-                        HashMap<String,Object> cart_items=new HashMap<>();
-                        cart_items.put("PID",id_produit.getText().toString());
-                        cart_items.put("Email",user.getEmail());
-                        documentReference.set(cart_items).addOnCompleteListener(task->{
-                            if(task.isSuccessful()){
-                                Toast.makeText(context, "product added successfully", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(context, "failed to add product to cart", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(failure->{
-                            Toast.makeText(context.getApplicationContext(), "check you internet connection", Toast.LENGTH_SHORT).show();
-                        });
-                    }else{
-                        firebaseAuth.signOut();
-                    }
-                }else{
-                    Toast.makeText(context.getApplicationContext(), "you are not connected, how did you get in here?", Toast.LENGTH_SHORT).show();
-                }
+
+
 
             });
 

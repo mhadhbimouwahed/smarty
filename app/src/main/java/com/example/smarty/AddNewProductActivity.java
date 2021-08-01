@@ -41,13 +41,14 @@ public class AddNewProductActivity extends AppCompatActivity {
     private EditText product_manufacturer;
     private EditText product_description;
     private Spinner in_stock;
+    private EditText product_discount;
     private ProgressBar progress_bar_new_product;
 
     public Uri imageUri;
     public static final int IMAGE_PICK_CODE=1000 ;
     public static final int PERMISSION_CODE = 1001;
-    private static final String[] category={"","portable computers","smart phones","accessories"};
-    private static final String[] inStock={"","yes","no"};
+    private static final String[] category={"product category","portable computers","smart phones","accessories"};
+    private static final String[] inStock={"in stock?","yes","no"};
 
     public StorageReference storageReference;
     public String downloadImageUrl;
@@ -64,6 +65,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         product_image=findViewById(R.id.product_image);
         product_manufacturer=findViewById(R.id.product_manufacturer);
         product_description=findViewById(R.id.product_description);
+        product_discount=findViewById(R.id.product_discount);
         in_stock=findViewById(R.id.in_stock);
         TextView save_product = findViewById(R.id.save_product);
         progress_bar_new_product=findViewById(R.id.progress_bar_new_product);
@@ -104,6 +106,8 @@ public class AddNewProductActivity extends AppCompatActivity {
                 Toast.makeText(this, "you need to select whether the product is in stock or not", Toast.LENGTH_SHORT).show();
             }else if(product_image==null) {
                 Toast.makeText(this, "you need to select an image for the product", Toast.LENGTH_SHORT).show();
+            }else if(product_discount.getText().toString().length()==0){
+                product_discount.setError("This field cannot be empty");
             }else{
                 progress_bar_new_product.setVisibility(View.VISIBLE);
                 addNewProduct();
@@ -144,6 +148,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                         product.put("ProductDescription",product_description.getText().toString());
                         product.put("InStock",in_stock.getSelectedItem().toString());
                         product.put("PID",documentReference.getId());
+                        product.put("ProductDiscount",product_discount.getText().toString());
                         documentReference.set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -156,7 +161,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                                     in_stock.setAdapter(null);
                                     product_manufacturer.setText("");
                                     product_description.setText("");
-
+                                    product_discount.setText("");
                                     progress_bar_new_product.setVisibility(View.INVISIBLE);
                                 }else{
                                     Toast.makeText(AddNewProductActivity.this, "failed to add new product", Toast.LENGTH_SHORT).show();
