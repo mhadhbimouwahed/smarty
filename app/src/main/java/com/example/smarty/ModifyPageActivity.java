@@ -251,7 +251,7 @@ public class ModifyPageActivity extends AppCompatActivity {
                 product_manufacturer_modify.setText(data.get("ProductPrise").toString());
                 product_description_modify.setText(data.get("ProductDescription").toString());
                 product_discount_modify.setText(data.get("ProductDiscount").toString());
-                
+
 
                 Glide.with(getApplicationContext()).load(data.get("ProductImage")).into(product_image_modify);
                 progress_bar_new_product_modify.setVisibility(View.INVISIBLE);
