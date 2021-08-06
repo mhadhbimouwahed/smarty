@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.smarty.ui.smartPhones.SmartPhonesFragment"
+        android:label="@string/menu_smart_phones"
+        tools:layout="@layout/smart_phones" />
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.example.smarty.ui.portableComputers.PortableComputersFragment"
+        android:label="@string/menu_portable_computers"
+        tools:layout="@layout/portable_computers" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.smarty.ui.computerAccessories.ComputerAccessoriesFragment"
+        android:label="@string/menu_computer_accessories"
+        tools:layout="@layout/computer_accessories" />
+</navigation>

@@ -2,7 +2,15 @@
 
     <style name="Theme.Smarty" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
     </style>
+
+    <style name="Theme.Smarty.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Smarty.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Smarty.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

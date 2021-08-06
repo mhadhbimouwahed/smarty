@@ -11,7 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Smarty">
-        <activity android:name=".ModifyPageActivity"></activity>
+        <activity
+            android:name=".NavigationClient"
+            android:exported="true"
+            android:label="@string/title_activity_navigation_client"
+            android:theme="@style/Theme.Smarty.NoActionBar" />
+        <activity android:name=".ModifyPageActivity" />
         <activity android:name=".DeleteProductActivity" />
         <activity android:name=".ModifyProductActivity" />
         <activity android:name=".AddNewProductActivity" />

@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                            startActivity(new Intent(getApplicationContext(),AdminActivity.class));
                            Toast.makeText(getApplicationContext(),"Welcome admin",Toast.LENGTH_SHORT).show();
                        }else{
-                           startActivity(new Intent(getApplicationContext(),MainPage.class));
+                           startActivity(new Intent(getApplicationContext(),NavigationClient.class));
                            Toast.makeText(getApplicationContext(),"Logged in successfully",Toast.LENGTH_LONG).show();
                        }
 
