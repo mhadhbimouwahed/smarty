@@ -22,7 +22,7 @@
             android:layout_marginStart="10dp"
             android:background="@drawable/gradient_textview"
             android:padding="10dp"
-            android:text="delete"
+            android:text="modify"
             android:textColor="#ffffff"
             android:textSize="10sp"
             android:textStyle="bold" />

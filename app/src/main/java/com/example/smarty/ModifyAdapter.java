@@ -100,7 +100,7 @@ public class ModifyAdapter extends RecyclerView.Adapter<ModifyAdapter.ModifyView
             });
 
             modifyButton.setOnClickListener(x->{
-                Toast.makeText(context.getApplicationContext(), "item clicked", Toast.LENGTH_SHORT).show();
+               
 
                 Intent intent=new Intent(context.getApplicationContext(),ModifyPageActivity.class);
                 intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
