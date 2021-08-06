@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -107,7 +108,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
 
             addToCart.setOnClickListener(x->{
 
-
+                Toast.makeText(context.getApplicationContext(), "product added to cart successfully", Toast.LENGTH_SHORT).show();
 
 
             });
