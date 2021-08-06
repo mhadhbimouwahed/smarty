@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
         FirebaseUser user=firebaseAuth.getCurrentUser();
         if(user!=null){
-            startActivity(new Intent(getApplicationContext(),MainPage.class));
+            startActivity(new Intent(getApplicationContext(),NavigationClient.class));
             if(Objects.equals(user.getEmail(), "adminpage@gmail.com")){
                 startActivity(new Intent(getApplicationContext(),AdminActivity.class));
             }
