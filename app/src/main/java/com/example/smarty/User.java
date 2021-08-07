@@ -15,8 +15,11 @@ public class User {
         this.LastName=LastName;
     }
 
+    public User(Object value) {
+    }
+
     public String getFirstName() {
-        return FirstName;
+        return this.FirstName;
     }
 
     public void setFirstName(String firstName) {
@@ -24,7 +27,7 @@ public class User {
     }
 
     public String getLastName() {
-        return LastName;
+        return this.LastName;
     }
 
     public void setLastName(String lastName) {
@@ -32,7 +35,7 @@ public class User {
     }
 
     public String getEmail() {
-        return Email;
+        return this.Email;
     }
 
     public void setEmail(String email) {

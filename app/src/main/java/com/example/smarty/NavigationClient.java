@@ -3,6 +3,8 @@ package com.example.smarty;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -15,25 +17,41 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smarty.databinding.ActivityNavigationClientBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class NavigationClient extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityNavigationClientBinding binding;
+    TextView userEmail;
+    TextView userFirstNameAndLastName;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+    DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         binding = ActivityNavigationClientBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        firebaseAuth=FirebaseAuth.getInstance();
+        database=FirebaseDatabase.getInstance().getReference("Users");
+
 
         setSupportActionBar(binding.appBarNavigationClient.toolbar);
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
@@ -41,11 +59,16 @@ public class NavigationClient extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_navigation_client);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        View header=navigationView.getHeaderView(0);
+        userEmail=header.findViewById(R.id.userEmail);
+        userFirstNameAndLastName=header.findViewById(R.id.userFirstNameAndLastName);
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.navigation_client, menu);
         return true;
     }
@@ -55,5 +78,26 @@ public class NavigationClient extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_navigation_client);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        user= firebaseAuth.getCurrentUser();
+        if(user==null){
+            Toast.makeText(getApplicationContext(), "this incident will be reported", Toast.LENGTH_SHORT).show();
+        }else{
+            database.child(user.getUid()).get().addOnCompleteListener(task->{
+                if(task.isSuccessful()){
+                    userEmail.setText(task.getResult().child("Email").getValue().toString());
+                    userFirstNameAndLastName.setText(task.getResult().child("FirstName").getValue().toString()+" "+task.getResult().child("LastName").getValue().toString());
+
+                }else{
+                    Toast.makeText(getApplicationContext(), "failed to display username and email", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(failure->{
+                Toast.makeText(getApplicationContext(), "please check you internet connection", Toast.LENGTH_SHORT).show();
+            });
+        }
     }
 }

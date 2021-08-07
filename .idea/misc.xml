@@ -23,12 +23,16 @@
         <entry key="app/src/main/res/layout/activity_admin.xml" value="0.264" />
         <entry key="app/src/main/res/layout/activity_category.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/activity_client.xml" value="0.321875" />
+        <entry key="app/src/main/res/layout/activity_delete_product.xml" value="0.31562819203268644" />
+        <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.31562819203268644" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.30787037037037035" />
         <entry key="app/src/main/res/layout/activity_main_page.xml" value="0.22314814814814815" />
         <entry key="app/src/main/res/layout/activity_modify_page.xml" value="0.22314814814814815" />
         <entry key="app/src/main/res/layout/activity_modify_product.xml" value="0.31562819203268644" />
         <entry key="app/src/main/res/layout/activity_navigation.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/activity_navigation_client.xml" value="0.321875" />
+        <entry key="app/src/main/res/layout/activity_not_loggedin.xml" value="0.31562819203268644" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.31562819203268644" />
         <entry key="app/src/main/res/layout/app_bar_client.xml" value="0.72" />
         <entry key="app/src/main/res/layout/app_bar_navigation.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/app_bar_navigation_client.xml" value="0.321875" />
@@ -53,6 +57,8 @@
         <entry key="app/src/main/res/menu/activity_navigation_drawer.xml" value="0.31562819203268644" />
         <entry key="app/src/main/res/menu/navigation.xml" value="0.321875" />
         <entry key="app/src/main/res/menu/navigation_client.xml" value="0.321875" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3421875" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3421875" />
       </map>
     </option>
   </component>
