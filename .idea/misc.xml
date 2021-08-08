@@ -36,7 +36,7 @@
         <entry key="app/src/main/res/layout/app_bar_client.xml" value="0.72" />
         <entry key="app/src/main/res/layout/app_bar_navigation.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/app_bar_navigation_client.xml" value="0.321875" />
-        <entry key="app/src/main/res/layout/cart_fragment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/cart_fragment.xml" value="0.264" />
         <entry key="app/src/main/res/layout/computer_accessories.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/content_client.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/content_navigation.xml" value="0.321875" />
@@ -48,6 +48,7 @@
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item.xml" value="0.4" />
         <entry key="app/src/main/res/layout/items.xml" value="0.6" />
+        <entry key="app/src/main/res/layout/items_cart.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/items_to_delete.xml" value="0.6" />
         <entry key="app/src/main/res/layout/items_to_modify.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/nav_header_client.xml" value="0.536" />
