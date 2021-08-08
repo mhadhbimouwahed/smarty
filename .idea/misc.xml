@@ -36,6 +36,7 @@
         <entry key="app/src/main/res/layout/app_bar_client.xml" value="0.72" />
         <entry key="app/src/main/res/layout/app_bar_navigation.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/app_bar_navigation_client.xml" value="0.321875" />
+        <entry key="app/src/main/res/layout/cart_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/computer_accessories.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/content_client.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/content_navigation.xml" value="0.321875" />
