@@ -1,6 +1,9 @@
 package com.example.smarty;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
@@ -9,6 +12,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -69,8 +73,30 @@ public class NavigationClient extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.navigation_client, menu);
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.navigation_client, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.logout_client:
+                logout();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void logout() {
+
+        user= firebaseAuth.getCurrentUser();
+        if (user!=null){
+            firebaseAuth.signOut();
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        }
     }
 
     @Override
