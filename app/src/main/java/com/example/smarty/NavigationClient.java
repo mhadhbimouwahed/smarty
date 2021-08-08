@@ -110,9 +110,7 @@ public class NavigationClient extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         user= firebaseAuth.getCurrentUser();
-        if(user==null){
-            Toast.makeText(getApplicationContext(), "this incident will be reported", Toast.LENGTH_SHORT).show();
-        }else{
+        if(user!=null){
             database.child(user.getUid()).get().addOnCompleteListener(task->{
                 if(task.isSuccessful()){
                     userEmail.setText(task.getResult().child("Email").getValue().toString());
@@ -124,6 +122,8 @@ public class NavigationClient extends AppCompatActivity {
             }).addOnFailureListener(failure->{
                 Toast.makeText(getApplicationContext(), "please check you internet connection", Toast.LENGTH_SHORT).show();
             });
+        }else{
+            firebaseAuth.signOut();
         }
     }
 }

@@ -22,6 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 public class SignUpActivity extends AppCompatActivity {
     private EditText firstName;
     private EditText lastName;
@@ -30,6 +33,10 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView signup;
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+
+
 
 
 
@@ -38,7 +45,8 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         firebaseAuth=FirebaseAuth.getInstance();
-
+        database=FirebaseDatabase.getInstance();
+        databaseReference=database.getReference("Users");
         firstName=findViewById(R.id.firstName);
         lastName=findViewById(R.id.lastName);
         email=findViewById(R.id.email_s);
@@ -74,20 +82,25 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
     public void Register(){
-        firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                User user=new User(email.getText().toString().trim(),password.getText().toString().trim(),firstName.getText().toString().trim(),lastName.getText().toString().trim());
-                Task<Void> users = FirebaseDatabase.getInstance().getReference("Users").child(String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getUid())).setValue(user);
 
-                if(task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"created account successfully",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                    finish();
-                }else{
-                    Toast.makeText(getApplicationContext(),"Sign up failed",Toast.LENGTH_SHORT).show();
-                }
-            }
+        firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnCompleteListener(this,task->{
+           if (task.isSuccessful()){
+
+               HashMap<String,String> user_to_create=new HashMap<>();
+               user_to_create.put("Email",email.getText().toString());
+               user_to_create.put("FirstName",firstName.getText().toString());
+               user_to_create.put("LastName",lastName.getText().toString());
+               user_to_create.put("Password",password.getText().toString());
+               databaseReference.child(firebaseAuth.getUid()).setValue(user_to_create);
+               Toast.makeText(getApplicationContext(), "user created successfully", Toast.LENGTH_SHORT).show();
+               startActivity(new Intent(getApplicationContext(),NavigationClient.class));
+
+           }else{
+               Toast.makeText(getApplicationContext(), "failed to sign up", Toast.LENGTH_SHORT).show();
+           }
+        }).addOnFailureListener(failure->{
+            Toast.makeText(getApplicationContext(), "please check your internet connection", Toast.LENGTH_SHORT).show();
         });
+
     }
 }
