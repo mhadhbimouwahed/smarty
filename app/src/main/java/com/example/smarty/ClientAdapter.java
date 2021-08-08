@@ -13,8 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.Source;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientViewHolder> {
 
@@ -77,6 +84,13 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
         LinearLayout expandItem;
 
 
+        FirebaseFirestore firestore;
+        CollectionReference productCollection;
+        CollectionReference cartCollection;
+        FirebaseAuth firebaseAuth;
+        FirebaseUser user;
+
+
 
 
         public ClientViewHolder(@NonNull  View itemView) {
@@ -93,9 +107,10 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
             expandable_layout=itemView.findViewById(R.id.expandable_layout);
             expandItem=itemView.findViewById(R.id.expandItem);
 
-
-
-
+            firestore=FirebaseFirestore.getInstance();
+            productCollection=firestore.collection("Products/");
+            cartCollection=firestore.collection("Cart/");
+            firebaseAuth=FirebaseAuth.getInstance();
 
 
 
@@ -107,10 +122,27 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
 
 
             addToCart.setOnClickListener(x->{
-
-                Toast.makeText(context.getApplicationContext(), "product added to cart successfully", Toast.LENGTH_SHORT).show();
-
-
+                productCollection.whereEqualTo("PID",id_produit.getText().toString()).get().addOnCompleteListener(task->{
+                    for (QueryDocumentSnapshot documentSnapshot:task.getResult()){
+                        HashMap<String,Object> data=new HashMap<>(documentSnapshot.getData());
+                        user=firebaseAuth.getCurrentUser();
+                        if (user!=null){
+                            cartCollection.document(user.getEmail()).collection("currentUserCart").document(id_produit.getText().toString()).set(data).addOnCompleteListener(taskAdd->{
+                                if (task.isSuccessful()){
+                                    Toast.makeText(context.getApplicationContext(), "product added to cart successfully", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(context.getApplicationContext(), "failed to add product to cart", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(failureAdd->{
+                                Toast.makeText(context.getApplicationContext(), "please check you internet connection", Toast.LENGTH_SHORT).show();
+                            });
+                        }else{
+                            Toast.makeText(context.getApplicationContext(), "you need to be logged in", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(failure->{
+                    Toast.makeText(context.getApplicationContext(), "please check your internet connection", Toast.LENGTH_SHORT).show();
+                });
             });
 
         }
