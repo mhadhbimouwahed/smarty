@@ -25,10 +25,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class NavigationClient extends AppCompatActivity {
 
@@ -38,7 +42,8 @@ public class NavigationClient extends AppCompatActivity {
     TextView userFirstNameAndLastName;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
-    DatabaseReference database;
+    FirebaseFirestore firestore;
+    CollectionReference collectionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +53,8 @@ public class NavigationClient extends AppCompatActivity {
         binding = ActivityNavigationClientBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         firebaseAuth=FirebaseAuth.getInstance();
-        database=FirebaseDatabase.getInstance().getReference("Users");
+        firestore=FirebaseFirestore.getInstance();
+        collectionReference=firestore.collection("Users");
 
 
         setSupportActionBar(binding.appBarNavigationClient.toolbarr);
@@ -81,13 +87,11 @@ public class NavigationClient extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
-            case R.id.logout_client:
-                logout();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.logout_client) {
+            logout();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void logout() {
@@ -111,16 +115,18 @@ public class NavigationClient extends AppCompatActivity {
         super.onStart();
         user= firebaseAuth.getCurrentUser();
         if(user!=null){
-            database.child(user.getUid()).get().addOnCompleteListener(task->{
-                if(task.isSuccessful()){
-                    userEmail.setText(task.getResult().child("Email").getValue().toString());
-                    userFirstNameAndLastName.setText(task.getResult().child("FirstName").getValue().toString()+" "+task.getResult().child("LastName").getValue().toString());
-
+            collectionReference.whereEqualTo("UserID",user.getUid()).get().addOnCompleteListener(task->{
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot documentSnapshot: Objects.requireNonNull(task.getResult())){
+                        Map<String, Object> data=documentSnapshot.getData();
+                        userEmail.setText(Objects.requireNonNull(data.get("Email")).toString());
+                        userFirstNameAndLastName.setText(data.get("FirstName").toString()+" "+data.get("LastName").toString());
+                    }
                 }else{
-                    Toast.makeText(getApplicationContext(), "failed to display username and email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "failed to display user credentials", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(failure->{
-                Toast.makeText(getApplicationContext(), "please check you internet connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "database error", Toast.LENGTH_SHORT).show();
             });
         }else{
             firebaseAuth.signOut();

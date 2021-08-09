@@ -26,21 +26,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText password;
     private ImageView logo;
     private ProgressBar progressBar;
-
-
     private FirebaseAuth firebaseAuth;
-    
-
-
     private Animation animation;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         firebaseAuth = FirebaseAuth.getInstance();
-
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
@@ -82,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
+
+
         progressBar.setVisibility(View.INVISIBLE);
         FirebaseUser user=firebaseAuth.getCurrentUser();
         if(user!=null){

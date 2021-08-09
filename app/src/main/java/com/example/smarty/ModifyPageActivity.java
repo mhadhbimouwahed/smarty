@@ -150,6 +150,7 @@ public class ModifyPageActivity extends AppCompatActivity {
                         in_stock_modify.setAdapter(null);
                         product_manufacturer_modify.setText("");
                         product_description_modify.setText("");
+                        product_discount_modify.setText("");
                     }else{
                         Toast.makeText(this, "there was a problem", Toast.LENGTH_SHORT).show();
                     }
