@@ -21,7 +21,6 @@
         <activity android:name=".ModifyProductActivity" />
         <activity android:name=".AddNewProductActivity" />
         <activity android:name=".AdminActivity" />
-        <activity android:name=".NotLoggedinActivity" />
         <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity">

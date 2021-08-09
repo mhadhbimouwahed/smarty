@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         TextView login = findViewById(R.id.login);
         TextView forgotPassword = findViewById(R.id.forgotPassword);
         TextView signup = findViewById(R.id.signup);
-        TextView skipForNow=findViewById(R.id.skipForNow);
+
         progressBar=findViewById(R.id.progress_bar);
         logo=findViewById(R.id.logo);
         animation=AnimationUtils.loadAnimation(getApplicationContext(),R.anim.animation);
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        skipForNow.setOnClickListener(x->startActivity(new Intent(getApplicationContext(),NotLoggedinActivity.class)));
+
 
     }
 
