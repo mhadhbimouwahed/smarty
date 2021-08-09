@@ -23,7 +23,6 @@
         <activity android:name=".AdminActivity" />
         <activity android:name=".NotLoggedinActivity" />
         <activity android:name=".ForgotPasswordActivity" />
-        <activity android:name=".MainPage" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
