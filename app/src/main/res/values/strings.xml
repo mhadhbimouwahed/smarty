@@ -8,6 +8,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_logout">Logout</string>
 
+    <string name="menu_password">Update password</string>
     <string name="menu_cart">Cart</string>
     <string name="menu_smart_phones">Smart phones</string>
     <string name="menu_portable_computers">Portable computers</string>

@@ -27,4 +27,9 @@
         android:name="com.example.smarty.ui.cart.CartFragment"
         android:label="@string/menu_cart"
         tools:layout="@layout/cart_fragment" />
+    <fragment
+        android:id="@+id/nav_password"
+        android:name="com.example.smarty.ui.updatePassword.UpdatePasswordFragment"
+        android:label="@string/menu_password"
+        tools:layout="@layout/update_password_fragment" />
 </navigation>
