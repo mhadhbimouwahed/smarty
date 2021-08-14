@@ -17,6 +17,7 @@ public class CartViewModel extends ViewModel {
 
     FirebaseFirestore firestore;
     CollectionReference collectionReference;
+    CollectionReference productCollection;
 
     ArrayList<Product> list;
     CartItemsAdapter cartItemsAdapter;
@@ -29,6 +30,7 @@ public class CartViewModel extends ViewModel {
 
         firestore=FirebaseFirestore.getInstance();
         collectionReference=firestore.collection("Cart");
+        productCollection=firestore.collection("Products");
     }
 
     public LiveData<String> getText(){return mText;}

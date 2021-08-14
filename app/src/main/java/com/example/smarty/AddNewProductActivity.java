@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.Continuation;
@@ -164,13 +165,12 @@ public class AddNewProductActivity extends AppCompatActivity {
                                     product_discount.setText("");
                                     progress_bar_new_product.setVisibility(View.INVISIBLE);
                                 }else{
-                                    Toast.makeText(AddNewProductActivity.this, "failed to add new product", Toast.LENGTH_SHORT).show();
-                                    progress_bar_new_product.setVisibility(View.INVISIBLE);
-                                    try {
-                                        throw task.getException();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
+                                    AlertDialog.Builder builder=new AlertDialog.Builder(getApplicationContext());
+                                    builder.create();
+                                    builder.setTitle("Error");
+                                    builder.setMessage("failed to add a new product");
+                                    builder.setPositiveButton("Okay",((dialog, which) -> dialog.dismiss()));
+                                    builder.show();
                                 }
 
                             }

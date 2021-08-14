@@ -1,6 +1,7 @@
 package com.example.smarty;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +11,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DeleteAdapter extends RecyclerView.Adapter<DeleteAdapter.DeleteViewHolder> {
 
@@ -73,7 +79,10 @@ public class DeleteAdapter extends RecyclerView.Adapter<DeleteAdapter.DeleteView
         CollectionReference collectionReference;
         FirebaseFirestore firestore;
         StorageReference reference;
-
+        CollectionReference cartCollection;
+        CollectionReference currentUserCart;
+        DocumentReference documentReference;
+        CollectionReference usersCollection;
         public DeleteViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -92,6 +101,10 @@ public class DeleteAdapter extends RecyclerView.Adapter<DeleteAdapter.DeleteView
             firestore=FirebaseFirestore.getInstance();
             collectionReference= firestore.collection("Products/");
             reference=storage.getReference("Images/");
+            cartCollection=firestore.collection("Cart/");
+            usersCollection=firestore.collection("Users");
+
+
 
             expandItem_delete.setOnClickListener(x->{
                 Product product=list_delete.get(getAdapterPosition());
@@ -100,15 +113,38 @@ public class DeleteAdapter extends RecyclerView.Adapter<DeleteAdapter.DeleteView
             });
 
             deleteButton.setOnClickListener(x->{
+
+                usersCollection.get().addOnCompleteListener(task->{
+                    if (task.isSuccessful()){
+                        for (QueryDocumentSnapshot documentSnapshot:task.getResult()){
+                            HashMap<String,Object> hashMap=new HashMap<>(documentSnapshot.getData());
+                            cartCollection.document(hashMap.get("Email").toString()).collection("currentUserCart").document(idDuProduit_delete.getText().toString())
+                                    .delete().addOnCompleteListener(secondTask->{
+                                        if (task.isSuccessful()){
+                                            Toast.makeText(context.getApplicationContext(), "deleted related cart products", Toast.LENGTH_SHORT).show();
+                                        }
+                            }).addOnFailureListener(secondFailure->{
+                               Log.d("ERROR_DELETING_FROM_CART",secondFailure.getMessage());
+                            });
+                        }
+                    }
+                }).addOnFailureListener(failure->{
+                   Log.d("ERROR_READING_FROM_USERS",failure.getMessage());
+                });
+
+
                 reference.child(idDuProduit_delete.getText().toString()).delete().addOnSuccessListener(sucess->{
-                    Toast.makeText(context.getApplicationContext(), "deleting the image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "deleted the product image", Toast.LENGTH_SHORT).show();
 
                 }).addOnFailureListener(fail->{
                     Toast.makeText(context, "failed to delete the image, do it manually", Toast.LENGTH_SHORT).show();
                 });
-                collectionReference.document(idDuProduit_delete.getText().toString()).delete().addOnSuccessListener(success->{
-                    Toast.makeText(context.getApplicationContext(), "product deleted successfully", Toast.LENGTH_SHORT).show();
 
+                collectionReference.document(idDuProduit_delete.getText().toString()).delete().addOnSuccessListener(success->{
+
+                    Toast.makeText(context.getApplicationContext(), "product deleted successfully", Toast.LENGTH_SHORT).show();
+                    list_delete.remove(getAdapterPosition());
+                    notifyDataSetChanged();
                 }).addOnFailureListener(fail->{
                     Toast.makeText(context.getApplicationContext(), "failed to delete the product", Toast.LENGTH_SHORT).show();
                 });

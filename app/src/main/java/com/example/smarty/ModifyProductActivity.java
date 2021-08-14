@@ -131,10 +131,15 @@ public class ModifyProductActivity extends AppCompatActivity {
                    modifyAdapter.notifyDataSetChanged();
                    loadingProducts.setVisibility(View.GONE);
                }
+           }else{
+               loadingProducts.setVisibility(View.GONE);
            }
         }).addOnFailureListener(fail->{
             Toast.makeText(this, "failed to load products", Toast.LENGTH_SHORT).show();
+            loadingProducts.setVisibility(View.GONE);
         });
+
+        loadingProducts.setVisibility(View.GONE);
     }
 
 

@@ -118,6 +118,8 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
                 if (user!=null){
                     cartCollection.document(user.getEmail()).collection("currentUserCart").document(id_produit_cart.getText().toString()).delete().addOnCompleteListener(task->{
                         Toast.makeText(context.getApplicationContext(), "product deleted successfully from cart", Toast.LENGTH_SHORT).show();
+                        list.remove(getAdapterPosition());
+                        notifyDataSetChanged();
                     }).addOnFailureListener(failure->{
                         Toast.makeText(context.getApplicationContext(), "please check your internet connection", Toast.LENGTH_SHORT).show();
                     });
