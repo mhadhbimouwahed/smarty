@@ -15,6 +15,7 @@ import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +52,7 @@ public class CartFragment extends Fragment {
 
         View root=binding.getRoot();
         final RecyclerView recyclerView=binding.cartItems;
-
+        final ProgressBar progress_bar_cart=binding.progressBarCart;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
         cartViewModel.list=new ArrayList<>();
@@ -66,6 +67,7 @@ public class CartFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        binding.progressBarCart.setVisibility(View.VISIBLE);
         binding.totalPrise.setText("");
         user=firebaseAuth.getCurrentUser();
         if(user!=null){
@@ -83,24 +85,36 @@ public class CartFragment extends Fragment {
                                         data.get("ProductManufacturer"),
                                         data.get("InStock"),
                                         data.get("ProductDiscount"));
+                                binding.progressBarCart.setVisibility(View.GONE);
                                 cartViewModel.list.add(product);
                                 cartViewModel.cartItemsAdapter.notifyDataSetChanged();
                             }
                         }else{
                             Toast.makeText(getContext().getApplicationContext(), "There are no products in the cart yet", Toast.LENGTH_SHORT).show();
+                            binding.progressBarCart.setVisibility(View.GONE);
                         }
                     }).addOnFailureListener(failure->{
                         Log.d("ERROR_DISPLAYING_CART_PRODUCTS",failure.getMessage());
+                        binding.progressBarCart.setVisibility(View.GONE);
             });
         }else{
             Toast.makeText(getContext().getApplicationContext(), "you need to be logged in", Toast.LENGTH_SHORT).show();
+            binding.progressBarCart.setVisibility(View.GONE);
         }
+        binding.progressBarCart.setVisibility(View.GONE);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         binding=null;
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        binding.progressBarCart.setVisibility(View.GONE);
     }
 }
 

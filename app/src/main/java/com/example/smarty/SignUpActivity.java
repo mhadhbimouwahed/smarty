@@ -42,11 +42,6 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseUser user_exist;
     private CollectionReference collectionReference;
 
-   
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
                AlertDialog.Builder builder=new AlertDialog.Builder(this);
                builder.create();
                builder.setTitle("Error");
-               builder.setMessage("The account already exists or there was a problem in the internet connection");
+               builder.setMessage("The account already exists or an internet connection");
                builder.setPositiveButton("Okay",(dialog,which)->dialog.dismiss());
 
                builder.show();

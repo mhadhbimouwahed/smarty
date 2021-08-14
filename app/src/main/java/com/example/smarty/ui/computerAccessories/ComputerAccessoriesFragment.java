@@ -50,6 +50,7 @@ public class ComputerAccessoriesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        binding.progressBarAcc.setVisibility(View.VISIBLE);
         computerAccessoriesViewModel.collectionReference.whereEqualTo("ProductCategory","accessories").get().addOnCompleteListener(task->{
 
             if(task.isSuccessful()){
@@ -65,20 +66,30 @@ public class ComputerAccessoriesFragment extends Fragment {
                             data.get("ProductManufacturer"),
                             data.get("InStock"),
                             data.get("ProductDiscount"));
+                    binding.progressBarAcc.setVisibility(View.GONE);
                     computerAccessoriesViewModel.list.add(product);
                     computerAccessoriesViewModel.clientAdapter.notifyDataSetChanged();
                 }
             }else{
                 Toast.makeText(requireContext().getApplicationContext(), "please check you internet connection", Toast.LENGTH_SHORT).show();
+                binding.progressBarAcc.setVisibility(View.GONE);
             }
         }).addOnFailureListener(failure->{
             Toast.makeText(requireContext().getApplicationContext(), "failed to load products", Toast.LENGTH_SHORT).show();
+            binding.progressBarAcc.setVisibility(View.GONE);
         });
+        binding.progressBarAcc.setVisibility(View.GONE);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        binding.progressBarAcc.setVisibility(View.GONE);
     }
 }

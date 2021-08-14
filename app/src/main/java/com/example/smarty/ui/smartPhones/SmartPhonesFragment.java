@@ -49,7 +49,7 @@ public class SmartPhonesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        binding.progressBarSma.setVisibility(View.VISIBLE);
         smartPhonesViewModel.collectionReference.whereEqualTo("ProductCategory","smart phones").get().addOnCompleteListener(task->{
 
             if(task.isSuccessful()){
@@ -65,15 +65,19 @@ public class SmartPhonesFragment extends Fragment {
                             data.get("ProductManufacturer"),
                             data.get("InStock"),
                             data.get("ProductDiscount"));
+                    binding.progressBarSma.setVisibility(View.GONE);
                     smartPhonesViewModel.list.add(product);
                     smartPhonesViewModel.clientAdapter.notifyDataSetChanged();
                 }
             }else{
                 Toast.makeText(requireContext().getApplicationContext(), "please check you internet connection", Toast.LENGTH_SHORT).show();
+                binding.progressBarSma.setVisibility(View.GONE);
             }
         }).addOnFailureListener(failure->{
             Toast.makeText(requireContext().getApplicationContext(), "failed to load products", Toast.LENGTH_SHORT).show();
+            binding.progressBarSma.setVisibility(View.GONE);
         });
+        binding.progressBarSma.setVisibility(View.GONE);
 
     }
 
@@ -81,5 +85,11 @@ public class SmartPhonesFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        binding.progressBarSma.setVisibility(View.GONE);
     }
 }

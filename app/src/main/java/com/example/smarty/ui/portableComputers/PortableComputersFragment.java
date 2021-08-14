@@ -51,7 +51,7 @@ public class PortableComputersFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        binding.progressBarPor.setVisibility(View.VISIBLE);
         portableComputersViewModel.collectionReference.whereEqualTo("ProductCategory","portable computers").get().addOnCompleteListener(task->{
 
             if(task.isSuccessful()){
@@ -67,20 +67,31 @@ public class PortableComputersFragment extends Fragment {
                            data.get("ProductManufacturer"),
                            data.get("InStock"),
                            data.get("ProductDiscount"));
+
+                   binding.progressBarPor.setVisibility(View.GONE);
                    portableComputersViewModel.list.add(product);
                    portableComputersViewModel.clientAdapter.notifyDataSetChanged();
                }
            }else{
                Toast.makeText(requireContext().getApplicationContext(), "please check you internet connection", Toast.LENGTH_SHORT).show();
+               binding.progressBarPor.setVisibility(View.GONE);
            }
         }).addOnFailureListener(failure->{
             Toast.makeText(requireContext().getApplicationContext(), "failed to load products", Toast.LENGTH_SHORT).show();
+            binding.progressBarPor.setVisibility(View.GONE);
         });
+        binding.progressBarPor.setVisibility(View.GONE);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        binding.progressBarPor.setVisibility(View.GONE);
     }
 }
