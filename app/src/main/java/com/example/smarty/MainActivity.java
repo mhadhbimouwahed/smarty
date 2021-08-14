@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                        AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
                        alertDialog.create();
                        alertDialog.setTitle("Error");
-                       alertDialog.setMessage("This account doesn't exist");
+                       alertDialog.setMessage("Please check again your email address and password");
                        alertDialog.setPositiveButton("Okay", (dialog, which) -> dialog.dismiss());
                        alertDialog.show();
                        progressBar.setVisibility(View.INVISIBLE);
