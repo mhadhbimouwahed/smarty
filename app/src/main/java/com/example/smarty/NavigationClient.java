@@ -123,10 +123,10 @@ public class NavigationClient extends AppCompatActivity {
                         userFirstNameAndLastName.setText(data.get("FirstName").toString()+" "+data.get("LastName").toString());
                     }
                 }else{
-                    Toast.makeText(getApplicationContext(), "failed to display user credentials", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "échec de l'affichage des informations ", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(failure->{
-                Toast.makeText(getApplicationContext(), "database error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "erreur de la base de données", Toast.LENGTH_SHORT).show();
             });
         }else{
             firebaseAuth.signOut();

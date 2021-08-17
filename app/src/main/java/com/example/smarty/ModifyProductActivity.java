@@ -60,7 +60,7 @@ public class ModifyProductActivity extends AppCompatActivity {
 
         search_product_button.setOnClickListener(x->{
             if(search_product_text.getText().toString().length()==0){
-                search_product_text.setError("This field cannot be empty");
+                search_product_text.setError("Ce champ ne peut pas être vide");
             }else{
                 modifyProduct();
             }
@@ -93,13 +93,13 @@ public class ModifyProductActivity extends AppCompatActivity {
                         modifyAdapter.notifyDataSetChanged();
                         loadingProducts.setVisibility(View.GONE);
                     }else{
-                        Toast.makeText(this, "product doesn't exist", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "le produit n'existe pas", Toast.LENGTH_SHORT).show();
                         loadingProducts.setVisibility(View.GONE);
                     }
                 }
             }
         }).addOnFailureListener(fail->{
-            Toast.makeText(this, "failed to load products ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "échec du chargement des produits", Toast.LENGTH_SHORT).show();
         });
 
     }
@@ -135,7 +135,7 @@ public class ModifyProductActivity extends AppCompatActivity {
                loadingProducts.setVisibility(View.GONE);
            }
         }).addOnFailureListener(fail->{
-            Toast.makeText(this, "failed to load products", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "échec du chargement des produits", Toast.LENGTH_SHORT).show();
             loadingProducts.setVisibility(View.GONE);
         });
 

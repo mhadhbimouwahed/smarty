@@ -44,13 +44,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="62dp"
                 android:background="@drawable/blue_border_rounded_cornwe">
+
                 <EditText
                     android:id="@+id/product_name_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:fontFamily="sans-serif"
-                    android:hint="product name"
+                    android:hint="nom du produit"
                     android:inputType="text"
                     android:maxLines="1"
                     android:paddingLeft="17dp"
@@ -74,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:fontFamily="sans-serif"
-                    android:hint="product prise"
+                    android:hint="prix du produit"
                     android:inputType="number"
                     android:maxLines="1"
                     android:paddingLeft="17dp"
@@ -110,13 +111,14 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="62dp"
                 android:background="@drawable/blue_border_rounded_cornwe">
+
                 <EditText
                     android:id="@+id/product_manufacturer_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:fontFamily="sans-serif"
-                    android:hint="product manufacturer"
+                    android:hint="constructeur du produit"
                     android:inputType="text"
                     android:maxLines="1"
                     android:paddingLeft="17dp"
@@ -140,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:fontFamily="sans-serif"
-                    android:hint="product description"
+                    android:hint="description du produit"
                     android:inputType="text"
                     android:maxLines="1"
                     android:paddingLeft="17dp"
@@ -164,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:fontFamily="sans-serif"
-                    android:hint="product discount in % if not write 0"
+                    android:hint="remise en %"
                     android:inputType="number"
                     android:maxLines="1"
                     android:paddingLeft="17dp"
@@ -195,22 +197,23 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="62dp"
                 >
+
                 <TextView
                     android:id="@+id/modify_product_button"
-                    android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="62dp"
                     android:layout_marginRight="62dp"
                     android:background="@drawable/gradient_textview"
                     android:fontFamily="sans-serif"
                     android:gravity="center"
-                    android:textStyle="bold"
                     android:paddingTop="14dp"
                     android:paddingBottom="14dp"
-                    android:text="modify product"
+                    android:text="modifier"
                     android:textColor="#ffffff"
                     android:textSize="14sp"
+                    android:textStyle="bold"
 
                     />
 

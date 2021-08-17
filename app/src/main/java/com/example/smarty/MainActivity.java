@@ -55,20 +55,16 @@ public class MainActivity extends AppCompatActivity {
 
         login.setOnClickListener(x->{
             if(email.getText().toString().length()==0){
-                email.setError("This field cannot be empty");
+                email.setError("Ce champ ne peut pas être vide");
             }
             else if(password.getText().toString().length()==0){
-                password.setError("This field cannot be empty");
+                password.setError("Ce champ ne peut pas être vide");
             }
             else{
                 progressBar.setVisibility(View.VISIBLE);
                 LoginMan();
             }
-
-
         });
-
-
 
     }
 
@@ -102,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                            Toast.makeText(getApplicationContext(),"Welcome admin",Toast.LENGTH_SHORT).show();
                        }else{
                            startActivity(new Intent(getApplicationContext(),NavigationClient.class));
-                           Toast.makeText(getApplicationContext(),"Logged in successfully",Toast.LENGTH_LONG).show();
+                           Toast.makeText(getApplicationContext(),"Connecté avec succès",Toast.LENGTH_LONG).show();
                        }
 
                    }else{
@@ -110,9 +106,9 @@ public class MainActivity extends AppCompatActivity {
                        password.setText("");
                        AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
                        alertDialog.create();
-                       alertDialog.setTitle("Error");
-                       alertDialog.setMessage("Please check again your email address and password");
-                       alertDialog.setPositiveButton("Okay", (dialog, which) -> dialog.dismiss());
+                       alertDialog.setTitle("Erreur");
+                       alertDialog.setMessage("Veuillez vérifier à nouveau votre adresse e-mail et votre mot de passe");
+                       alertDialog.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
                        alertDialog.show();
                        progressBar.setVisibility(View.INVISIBLE);
                    }

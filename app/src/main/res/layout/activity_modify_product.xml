@@ -19,13 +19,14 @@
             android:layout_marginTop="36.7dp"
             android:layout_marginRight="62dp"
             android:background="@drawable/blue_border_rounded_cornwe">
+
             <EditText
                 android:id="@+id/search_product_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:fontFamily="sans-serif"
-                android:hint="search product"
+                android:hint="chercher un produit"
                 android:inputType="text"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
@@ -49,7 +50,7 @@
             android:textStyle="bold"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:text="search"
+            android:text="chercher"
             android:textColor="#ffffff"
             android:textSize="12sp"
             />

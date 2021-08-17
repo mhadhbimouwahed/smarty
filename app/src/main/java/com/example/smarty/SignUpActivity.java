@@ -63,16 +63,16 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(firstName.getText().toString().length()==0){
-                    firstName.setError("this field cannot be empty");
+                    firstName.setError("Ce champ ne peut pas être vide");
                 }
                 else if(lastName.getText().toString().length()==0){
-                    lastName.setError("this field cannot be empty");
+                    lastName.setError("Ce champ ne peut pas être vide");
                 }
                 else if(email.getText().toString().length()==0){
-                    email.setError("this field cannot be empty");
+                    email.setError("Ce champ ne peut pas être vide");
                 }
                 else if(password.getText().toString().length()==0){
-                    password.setError("this field cannot be empty");
+                    password.setError("Ce champ ne peut pas être vide");
                 }
                 else{
                     progressBar.setVisibility(View.VISIBLE);
@@ -100,22 +100,22 @@ public class SignUpActivity extends AppCompatActivity {
                
                collectionReference.document(firebaseAuth.getUid()).set(user_to_create).addOnCompleteListener(taska->{
                    if (taska.isSuccessful()){
-                       Toast.makeText(getApplicationContext(), "user created sucessfully", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(getApplicationContext(), "utilisateur créé avec succès", Toast.LENGTH_SHORT).show();
                    }else{
-                       Toast.makeText(getApplicationContext(), "couldn't save client", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(getApplicationContext(), "impossible d'enregistrer le client", Toast.LENGTH_SHORT).show();
                    }
                }).addOnFailureListener(failure->{
-                   Toast.makeText(getApplicationContext(), "couldn't save client", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(getApplicationContext(), "impossible d'enregistrer le client", Toast.LENGTH_SHORT).show();
                });
-               Toast.makeText(getApplicationContext(), "user created successfully", Toast.LENGTH_SHORT).show();
+               Toast.makeText(getApplicationContext(), "utilisateur créé avec succès", Toast.LENGTH_SHORT).show();
                startActivity(new Intent(getApplicationContext(),NavigationClient.class));
 
            }else{
                AlertDialog.Builder builder=new AlertDialog.Builder(this);
                builder.create();
-               builder.setTitle("Error");
-               builder.setMessage("The account already exists or an internet connection");
-               builder.setPositiveButton("Okay",(dialog,which)->dialog.dismiss());
+               builder.setTitle("Erreur");
+               builder.setMessage("Le compte existe déjà ou il s'agit d'une connexion Internet");
+               builder.setPositiveButton("OK",(dialog,which)->dialog.dismiss());
 
                builder.show();
 
@@ -126,7 +126,7 @@ public class SignUpActivity extends AppCompatActivity {
                progressBar.setVisibility(View.INVISIBLE);
            }
         }).addOnFailureListener(failure->{
-            Toast.makeText(getApplicationContext(), "please check your internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "S'il vous plait, vérifiez votre connexion internet", Toast.LENGTH_SHORT).show();
         });
 
     }

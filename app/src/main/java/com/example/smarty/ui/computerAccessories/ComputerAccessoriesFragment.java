@@ -51,7 +51,7 @@ public class ComputerAccessoriesFragment extends Fragment {
     public void onStart() {
         super.onStart();
         binding.progressBarAcc.setVisibility(View.VISIBLE);
-        computerAccessoriesViewModel.collectionReference.whereEqualTo("ProductCategory","accessories").get().addOnCompleteListener(task->{
+        computerAccessoriesViewModel.collectionReference.whereEqualTo("ProductCategory","accessoires").get().addOnCompleteListener(task->{
 
             if(task.isSuccessful()){
 
@@ -71,11 +71,11 @@ public class ComputerAccessoriesFragment extends Fragment {
                     computerAccessoriesViewModel.clientAdapter.notifyDataSetChanged();
                 }
             }else{
-                Toast.makeText(requireContext().getApplicationContext(), "please check you internet connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext().getApplicationContext(), "S'il vous plait, vérifiez votre connexion internet", Toast.LENGTH_SHORT).show();
                 binding.progressBarAcc.setVisibility(View.GONE);
             }
         }).addOnFailureListener(failure->{
-            Toast.makeText(requireContext().getApplicationContext(), "failed to load products", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext().getApplicationContext(), "échec du chargement des produits", Toast.LENGTH_SHORT).show();
             binding.progressBarAcc.setVisibility(View.GONE);
         });
         binding.progressBarAcc.setVisibility(View.GONE);

@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign up for free"
+                android:text="Inscription gratuite"
                 android:textStyle="bold"
                 android:textSize="25sp"
                 android:textColor="#ffffff"
@@ -57,7 +57,7 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="sans-serif"
 
-                android:hint="First Name"
+                android:hint="Nom"
                 android:inputType="text"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
@@ -76,6 +76,7 @@
             android:layout_marginTop="17.7dp"
             android:layout_marginRight="62dp"
             android:background="@drawable/blue_border_rounded_cornwe">
+
             <EditText
                 android:id="@+id/lastName"
                 android:layout_width="match_parent"
@@ -83,7 +84,7 @@
 
                 android:background="@android:color/transparent"
                 android:fontFamily="sans-serif"
-                android:hint="Last Name"
+                android:hint="Prénom"
                 android:inputType="text"
                 android:maxLength="10"
                 android:maxLines="1"
@@ -91,8 +92,7 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp" />
             <ProgressBar
                 android:id="@+id/progress_bar_s"
                 android:layout_width="wrap_content"
@@ -142,6 +142,7 @@
             android:layout_marginTop="17.7dp"
             android:layout_marginRight="62dp"
             android:background="@drawable/blue_border_rounded_cornwe">
+
             <EditText
                 android:id="@+id/password_s"
                 android:layout_width="match_parent"
@@ -149,15 +150,14 @@
                 android:layout_toRightOf="@+id/icon"
                 android:background="@android:color/transparent"
                 android:fontFamily="sans-serif"
-                android:hint="Password"
+                android:hint="Mot de passe"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp" />
             <ImageView
                 android:id="@+id/icon"
                 android:layout_width="14.7dp"
@@ -182,7 +182,7 @@
             android:gravity="center"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:text="Sign up"
+            android:text="S'inscrire"
             android:textColor="#ffffff"
             android:textSize="14sp"
             />
@@ -196,7 +196,7 @@
             android:textSize="12sp"
             android:textColor="#ffffff"
             android:fontFamily="sans-serif"
-            android:text="Sale of office equipment, computers and household appliances"/>
+            android:text="Vente de matériel de bureau, d'ordinateurs et d'appareils électroménagers"/>
 
     </LinearLayout>
     </ScrollView>

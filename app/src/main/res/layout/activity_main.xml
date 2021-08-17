@@ -79,6 +79,7 @@
             android:layout_marginTop="17.7dp"
             android:layout_marginRight="62dp"
             android:background="@drawable/blue_border_rounded_cornwe">
+
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
@@ -86,15 +87,14 @@
                 android:layout_toRightOf="@+id/icon"
                 android:background="@android:color/transparent"
                 android:fontFamily="sans-serif"
-                android:hint="Password"
+                android:hint="Mot de passe"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp" />
             <ImageView
                 android:id="@+id/icon"
                 android:layout_width="14.7dp"
@@ -118,7 +118,8 @@
             android:textStyle="bold"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:text="Login"
+            android:text="connexion
+"
             android:textColor="#ffffff"
             android:textSize="14sp"
             />
@@ -129,7 +130,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:fontFamily="sans-serif"
-            android:text="Forgot Password?"
+            android:text="Mot de passe oublié?"
             android:textColor="#ffffff"
             android:textSize="14sp"
             />
@@ -153,7 +154,7 @@
                 android:id="@+id/signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign up with email"
+                android:text="S'inscrire"
                 android:textColor="#ffffff"
                 android:padding="10dp"
                 android:textStyle="bold"

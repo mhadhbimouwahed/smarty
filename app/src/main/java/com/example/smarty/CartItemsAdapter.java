@@ -117,14 +117,14 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
                 user=firebaseAuth.getCurrentUser();
                 if (user!=null){
                     cartCollection.document(user.getEmail()).collection("currentUserCart").document(id_produit_cart.getText().toString()).delete().addOnCompleteListener(task->{
-                        Toast.makeText(context.getApplicationContext(), "product deleted successfully from cart", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context.getApplicationContext(), "produit supprimé avec succès du panier", Toast.LENGTH_SHORT).show();
                         list.remove(getAdapterPosition());
                         notifyDataSetChanged();
                     }).addOnFailureListener(failure->{
-                        Toast.makeText(context.getApplicationContext(), "please check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context.getApplicationContext(), "S'il vous plait, vérifiez votre connexion internet", Toast.LENGTH_SHORT).show();
                     });
                 }else{
-                    Toast.makeText(context.getApplicationContext(), "you need to be connected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "vous devez être connecté\n", Toast.LENGTH_SHORT).show();
                 }
             });
         }

@@ -27,7 +27,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         resetButton.setOnClickListener(v -> {
             if(email.getText().toString().length()==0){
-                email.setError("this field cannot be empty");
+                email.setError("Ce champ ne peut pas être vide");
             }else{
                 ForgotPassword();
             }
@@ -39,20 +39,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     public void ForgotPassword(){
         firebaseAuth.sendPasswordResetEmail(email.getText().toString())
                 .addOnSuccessListener(unused -> {
-                    Toast.makeText(getApplicationContext(),"an email was sent to reset your password",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "un email a été envoyé pour réinitialiser votre mot de passe",Toast.LENGTH_LONG).show();
                     email.setText("");
                     AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
                     alertDialog.create();
-                    alertDialog.setTitle("Email sent");
-                    alertDialog.setMessage("Please check your email successfully and continue the procedure from there");
-                    alertDialog.setPositiveButton("Okay",(dialog,which)->dialog.dismiss());
+                    alertDialog.setTitle("Email envoyé");
+                    alertDialog.setMessage("Veuillez vérifier votre courrier électronique et continuer la procédure à partir de là");
+                    alertDialog.setPositiveButton("OK",(dialog,which)->dialog.dismiss());
                     alertDialog.show();
                 }).addOnFailureListener(e -> {
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.create();
-            builder.setTitle("Error");
-            builder.setMessage("There was a problem sending the reset information");
-            builder.setPositiveButton("Okay",(dialog,which)->dialog.dismiss());
+            builder.setTitle("Erreur");
+            builder.setMessage("Un problème est survenu lors de l'envoi des informations de réinitialisation");
+            builder.setPositiveButton("OK",(dialog,which)->dialog.dismiss());
             email.setText("");
             builder.show();
         });

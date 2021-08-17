@@ -52,15 +52,15 @@ public class UpdatePasswordFragment extends Fragment {
 
         change_password.setOnClickListener(x->{
             if (current_password.getText().toString().equals("")){
-                current_password.setError("This field cannot be empty");
+                current_password.setError("Ce champ ne peut pas être vide");
             }else if(new_password.getText().toString().equals("")){
-                new_password.setError("This field cannot be empty");
+                new_password.setError("Ce champ ne peut pas être vide");
             }else if(current_password.getText().toString().equals(new_password.getText().toString())){
                 AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
                 builder.create();
-                builder.setTitle("Error");
-                builder.setMessage("Passwords must not match, please check again");
-                builder.setPositiveButton("Okay",((dialog, which) -> dialog.dismiss()));
+                builder.setTitle("Erreur");
+                builder.setMessage("Les mots de passe ne doivent pas correspondre, veuillez vérifier à nouveau");
+                builder.setPositiveButton("OK",((dialog, which) -> dialog.dismiss()));
                 builder.show();
             }else{
                 updatePasswordViewModel.user= updatePasswordViewModel.firebaseAuth.getCurrentUser();
@@ -74,9 +74,9 @@ public class UpdatePasswordFragment extends Fragment {
                                         if (!current_password.getText().toString().equals(hashMap.get("Password"))){
                                             AlertDialog.Builder not_found=new AlertDialog.Builder(getContext());
                                             not_found.create();
-                                            not_found.setTitle("Error");
-                                            not_found.setMessage("The current password you provided is incorrect");
-                                            not_found.setPositiveButton("Okay",((dialog, which) -> dialog.dismiss()));
+                                            not_found.setTitle("Erreur");
+                                            not_found.setMessage("Le mot de passe actuel que vous avez fourni est incorrect");
+                                            not_found.setPositiveButton("OK",((dialog, which) -> dialog.dismiss()));
                                             not_found.show();
                                         }else{
                                             updatePasswordViewModel.user.updatePassword(new_password.getText().toString())
@@ -88,7 +88,7 @@ public class UpdatePasswordFragment extends Fragment {
 
                                                             updatePasswordViewModel.collectionReference.document(updatePasswordViewModel.user.getUid()).update(hashMap)
                                                                     .addOnCompleteListener(thirdTask->{
-                                                                        Toast.makeText(getContext().getApplicationContext(), "Password updated successfully", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(getContext().getApplicationContext(), "Mot de passe mis à jour avec succès", Toast.LENGTH_SHORT).show();
                                                                         current_password.setText("");
                                                                         new_password.setText("");
                                                                     }).addOnFailureListener(thirdFailure->{
@@ -97,25 +97,25 @@ public class UpdatePasswordFragment extends Fragment {
                                                         }else{
                                                             AlertDialog.Builder failed_to_change=new AlertDialog.Builder(getContext());
                                                             failed_to_change.create();
-                                                            failed_to_change.setTitle("Error");
+                                                            failed_to_change.setTitle("Erreur");
                                                             failed_to_change.setMessage("Failed to update the password, please contact the admin");
-                                                            failed_to_change.setPositiveButton("Okay",((dialog, which) -> dialog.dismiss()));
+                                                            failed_to_change.setPositiveButton("OK",((dialog, which) -> dialog.dismiss()));
                                                             failed_to_change.show();
                                                         }
                                                     }).addOnFailureListener(secondFailure->{
-                                                Toast.makeText(getContext().getApplicationContext(), "The issue could be your internet connection", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getContext().getApplicationContext(), "Le problème pourrait être votre connexion Internet", Toast.LENGTH_SHORT).show();
                                             });
                                         }
                                     }
 
                                 }else{
-                                    Toast.makeText(getContext().getApplicationContext(), "There was a database error, please try later", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext().getApplicationContext(), "Il y a eu une erreur dans la base de données, veuillez réessayer plus tard", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(firstFailure->{
-                        Toast.makeText(getContext().getApplicationContext(), "The issue could be your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext().getApplicationContext(), "Le problème pourrait être votre connexion Internet", Toast.LENGTH_SHORT).show();
                     });
                 }else{
-                    Toast.makeText(getContext().getApplicationContext(), "You are not logged in, this incident will be reported", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext().getApplicationContext(), "Vous n'êtes pas connecté, cet incident sera signalé", Toast.LENGTH_SHORT).show();
                 }
             }
         });

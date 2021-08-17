@@ -50,7 +50,7 @@ public class SmartPhonesFragment extends Fragment {
     public void onStart() {
         super.onStart();
         binding.progressBarSma.setVisibility(View.VISIBLE);
-        smartPhonesViewModel.collectionReference.whereEqualTo("ProductCategory","smart phones").get().addOnCompleteListener(task->{
+        smartPhonesViewModel.collectionReference.whereEqualTo("ProductCategory","smartphones").get().addOnCompleteListener(task->{
 
             if(task.isSuccessful()){
 
@@ -70,11 +70,11 @@ public class SmartPhonesFragment extends Fragment {
                     smartPhonesViewModel.clientAdapter.notifyDataSetChanged();
                 }
             }else{
-                Toast.makeText(requireContext().getApplicationContext(), "please check you internet connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext().getApplicationContext(), "veuillez vérifier votre connexion internet", Toast.LENGTH_SHORT).show();
                 binding.progressBarSma.setVisibility(View.GONE);
             }
         }).addOnFailureListener(failure->{
-            Toast.makeText(requireContext().getApplicationContext(), "failed to load products", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext().getApplicationContext(), "échec du chargement des produits", Toast.LENGTH_SHORT).show();
             binding.progressBarSma.setVisibility(View.GONE);
         });
         binding.progressBarSma.setVisibility(View.GONE);

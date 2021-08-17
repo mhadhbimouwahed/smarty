@@ -90,7 +90,7 @@ public class CartFragment extends Fragment {
                                 cartViewModel.cartItemsAdapter.notifyDataSetChanged();
                             }
                         }else{
-                            Toast.makeText(getContext().getApplicationContext(), "There are no products in the cart yet", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext().getApplicationContext(), "Il n'y a pas encore de produits dans le panier", Toast.LENGTH_SHORT).show();
                             binding.progressBarCart.setVisibility(View.GONE);
                         }
                     }).addOnFailureListener(failure->{
@@ -98,7 +98,7 @@ public class CartFragment extends Fragment {
                         binding.progressBarCart.setVisibility(View.GONE);
             });
         }else{
-            Toast.makeText(getContext().getApplicationContext(), "you need to be logged in", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext().getApplicationContext(), "Vous devez être connecté", Toast.LENGTH_SHORT).show();
             binding.progressBarCart.setVisibility(View.GONE);
         }
         binding.progressBarCart.setVisibility(View.GONE);

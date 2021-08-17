@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -84,6 +85,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
         LinearLayout expandItem;
 
 
+
         FirebaseFirestore firestore;
         CollectionReference productCollection;
         CollectionReference cartCollection;
@@ -114,10 +116,15 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
 
 
 
+
             expandItem.setOnClickListener(x->{
                 Product product=list.get(getAdapterPosition());
                 product.setIsExpanded(!product.isExpanded());
                 notifyItemChanged(getAdapterPosition());
+            });
+
+            imageDuProduit.setOnClickListener(x->{
+                zoom();
             });
 
 
@@ -129,22 +136,26 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
                         if (user!=null){
                             cartCollection.document(user.getEmail()).collection("currentUserCart").document(id_produit.getText().toString()).set(data).addOnCompleteListener(taskAdd->{
                                 if (task.isSuccessful()){
-                                    Toast.makeText(context.getApplicationContext(), "product added to cart successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context.getApplicationContext(), "produit ajouté au panier avec succès", Toast.LENGTH_SHORT).show();
                                 }else{
-                                    Toast.makeText(context.getApplicationContext(), "failed to add product to cart", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context.getApplicationContext(), "échec de l'ajout du produit au panier", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(failureAdd->{
-                                Toast.makeText(context.getApplicationContext(), "please check you internet connection", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context.getApplicationContext(), "veuillez vérifier votre connexion internet", Toast.LENGTH_SHORT).show();
                             });
                         }else{
-                            Toast.makeText(context.getApplicationContext(), "you need to be logged in", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context.getApplicationContext(), "Vous devez être connecté", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(failure->{
-                    Toast.makeText(context.getApplicationContext(), "please check your internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "S'il vous plait, vérifiez votre connexion internet", Toast.LENGTH_SHORT).show();
                 });
             });
 
+        }
+
+        private void zoom() {
+            Toast.makeText(context.getApplicationContext(), "zooming in", Toast.LENGTH_SHORT).show();
         }
     }
 }

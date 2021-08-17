@@ -102,14 +102,14 @@ public class DeleteProductActivity extends AppCompatActivity {
                                     deleteAdapter.notifyDataSetChanged();
                                     loadingProducts_deleteProduct.setVisibility(View.GONE);
                                 }else{
-                                    Toast.makeText(DeleteProductActivity.this, "product doesn't exist", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(DeleteProductActivity.this, "le produit n'existe pas", Toast.LENGTH_SHORT).show();
                                     loadingProducts_deleteProduct.setVisibility(View.GONE);
                                 }
                             }
                         }
                     }
                 }).addOnFailureListener(fail->{
-                    Toast.makeText(this, "failed to load products", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "échec du chargement des produits", Toast.LENGTH_SHORT).show();
                     loadingProducts_deleteProduct.setVisibility(View.GONE);
                 });
             }
@@ -151,7 +151,7 @@ public class DeleteProductActivity extends AppCompatActivity {
                 loadingProducts_deleteProduct.setVisibility(View.GONE);
             }
         }).addOnFailureListener(fail->{
-            Toast.makeText(this, "failed to load products", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "échec du chargement des produits", Toast.LENGTH_SHORT).show();
             loadingProducts_deleteProduct.setVisibility(View.GONE);
         });
 

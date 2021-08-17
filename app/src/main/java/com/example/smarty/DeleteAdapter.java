@@ -121,7 +121,7 @@ public class DeleteAdapter extends RecyclerView.Adapter<DeleteAdapter.DeleteView
                             cartCollection.document(hashMap.get("Email").toString()).collection("currentUserCart").document(idDuProduit_delete.getText().toString())
                                     .delete().addOnCompleteListener(secondTask->{
                                         if (task.isSuccessful()){
-                                            Toast.makeText(context.getApplicationContext(), "deleted related cart products", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context.getApplicationContext(), "produits du panier associés supprimés", Toast.LENGTH_SHORT).show();
                                         }
                             }).addOnFailureListener(secondFailure->{
                                Log.d("ERROR_DELETING_FROM_CART",secondFailure.getMessage());
@@ -137,16 +137,16 @@ public class DeleteAdapter extends RecyclerView.Adapter<DeleteAdapter.DeleteView
                     Toast.makeText(context.getApplicationContext(), "deleted the product image", Toast.LENGTH_SHORT).show();
 
                 }).addOnFailureListener(fail->{
-                    Toast.makeText(context, "failed to delete the image, do it manually", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "n'a pas réussi à supprimer l'image, faites-le manuellement", Toast.LENGTH_SHORT).show();
                 });
 
                 collectionReference.document(idDuProduit_delete.getText().toString()).delete().addOnSuccessListener(success->{
 
-                    Toast.makeText(context.getApplicationContext(), "product deleted successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "produit supprimé avec succès", Toast.LENGTH_SHORT).show();
                     list_delete.remove(getAdapterPosition());
                     notifyDataSetChanged();
                 }).addOnFailureListener(fail->{
-                    Toast.makeText(context.getApplicationContext(), "failed to delete the product", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "échec de la suppression du produit", Toast.LENGTH_SHORT).show();
                 });
             });
 

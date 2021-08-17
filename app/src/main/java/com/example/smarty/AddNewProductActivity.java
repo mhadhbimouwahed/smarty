@@ -48,8 +48,8 @@ public class AddNewProductActivity extends AppCompatActivity {
     public Uri imageUri;
     public static final int IMAGE_PICK_CODE=1000 ;
     public static final int PERMISSION_CODE = 1001;
-    private static final String[] category={"product category","portable computers","smart phones","accessories"};
-    private static final String[] inStock={"in stock?","yes","no"};
+    private static final String[] category={"catégorie de produit","ordinateurs portables","smartphones","accessoires"};
+    private static final String[] inStock={"in stock?","oui","non"};
 
     public StorageReference storageReference;
     public String downloadImageUrl;
@@ -94,21 +94,21 @@ public class AddNewProductActivity extends AppCompatActivity {
 
         save_product.setOnClickListener(x->{
             if(product_name.getText().toString().length()==0){
-                product_name.setError("This field cannot be empty");
+                product_name.setError("Ce champ ne peut pas être vide");
             }else if(product_prise.getText().toString().length()==0){
-                product_prise.setError("This field cannot be empty");
+                product_prise.setError("Ce champ ne peut pas être vide");
             }else if(product_category.getSelectedItem().equals(null)){
-                Toast.makeText(this, "you need to select item category first", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "vous devez d'abord sélectionner la catégorie d'article", Toast.LENGTH_LONG).show();
             }else if(product_manufacturer.getText().toString().length()==0){
-                product_manufacturer.setError("This field cannot be empty");
+                product_manufacturer.setError("Ce champ ne peut pas être vide");
             }else if(product_description.getText().toString().length()==0){
-                product_description.setError("This field cannot be empty");
+                product_description.setError("Ce champ ne peut pas être vide");
             }else if(in_stock.getSelectedItem().equals(null)){
-                Toast.makeText(this, "you need to select whether the product is in stock or not", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "vous devez sélectionner si le produit est en stock ou non", Toast.LENGTH_SHORT).show();
             }else if(product_image==null) {
-                Toast.makeText(this, "you need to select an image for the product", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "vous devez sélectionner une image pour le produit", Toast.LENGTH_SHORT).show();
             }else if(product_discount.getText().toString().length()==0){
-                product_discount.setError("This field cannot be empty");
+                product_discount.setError("Ce champ ne peut pas être vide");
             }else{
                 progress_bar_new_product.setVisibility(View.VISIBLE);
                 addNewProduct();
@@ -116,7 +116,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         });
 
         product_image.setOnClickListener(x->{
-            Toast.makeText(this, "choose an image for your product", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "choisissez une image pour votre produit", Toast.LENGTH_SHORT).show();
             openGallery();
 
         });
@@ -154,7 +154,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
-                                    Toast.makeText(AddNewProductActivity.this, "product added successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddNewProductActivity.this, "produit ajouté avec succès", Toast.LENGTH_SHORT).show();
                                     product_name.setText("");
                                     product_image.setImageURI(null);
                                     product_prise.setText("");
@@ -167,9 +167,9 @@ public class AddNewProductActivity extends AppCompatActivity {
                                 }else{
                                     AlertDialog.Builder builder=new AlertDialog.Builder(getApplicationContext());
                                     builder.create();
-                                    builder.setTitle("Error");
-                                    builder.setMessage("failed to add a new product");
-                                    builder.setPositiveButton("Okay",((dialog, which) -> dialog.dismiss()));
+                                    builder.setTitle("Erreur");
+                                    builder.setMessage("échec de l'ajout d'un nouveau produit");
+                                    builder.setPositiveButton("OK",((dialog, which) -> dialog.dismiss()));
                                     builder.show();
                                 }
 
@@ -177,7 +177,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                         });
 
                 }else{
-                    Toast.makeText(AddNewProductActivity.this, "failed to upload the image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddNewProductActivity.this, "échec du téléchargement de l'image", Toast.LENGTH_SHORT).show();
                     progress_bar_new_product.setVisibility(View.INVISIBLE);
                 }
             }
@@ -220,7 +220,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                 openGallery();
             } else {
 
-                Toast.makeText(this, "Permission denied...!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,  "Permission refusée...!", Toast.LENGTH_SHORT).show();
             }
         }
     }

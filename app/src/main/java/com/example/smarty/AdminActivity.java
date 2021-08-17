@@ -31,7 +31,7 @@ public class AdminActivity extends AppCompatActivity {
         deleteProduct.setOnClickListener(x-> startActivity(new Intent(getApplicationContext(),DeleteProductActivity.class)));
         
         logout_admin.setOnClickListener(x->{
-            Toast.makeText(this, "Logging out", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Déconnecter", Toast.LENGTH_SHORT).show();
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         });

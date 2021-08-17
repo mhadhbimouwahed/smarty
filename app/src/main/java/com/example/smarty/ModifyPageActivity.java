@@ -49,8 +49,8 @@ public class ModifyPageActivity extends AppCompatActivity {
     public Uri imageUri;
     public static final int IMAGE_PICK_CODE=1000 ;
     public static final int PERMISSION_CODE = 1001;
-    private static final String[] categories={"product category","portable computers","smart phones","accessories"};
-    private static final String[] instock_yes_no={"in stock?","yes","no"};
+    private static final String[] categories={"catégorie de produit","ordinateurs portables","smartphones","accessoires"};
+    private static final String[] instock_yes_no={"in stock?","oui","non"};
 
     public StorageReference storageReference;
     public FirebaseFirestore firestore;
@@ -99,27 +99,27 @@ public class ModifyPageActivity extends AppCompatActivity {
 
 
             if(product_name_modify.getText().toString().equals("")){
-                product_name_modify.setError("This field cannot be empty");
+                product_name_modify.setError("Ce champ ne peut pas être vide");
             }
             else if(product_prise_modify.getText().toString().equals("")){
-                product_prise_modify.setError("This field cannot be empty");
+                product_prise_modify.setError("Ce champ ne peut pas être vide");
             }else if(product_category_modify.getSelectedItem().equals(null)){
-                Toast.makeText(this, "select item category before you modify", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "sélectionnez la catégorie d'article avant de modifier", Toast.LENGTH_SHORT).show();
             }else if(product_manufacturer_modify.getText().toString().equals("")){
-                product_manufacturer_modify.setError("This field cannot be empty");
+                product_manufacturer_modify.setError("Ce champ ne peut pas être vide");
             }else if(product_description_modify.getText().toString().equals("")){
-                product_description_modify.setError("This field cannot be empty");
+                product_description_modify.setError("Ce champ ne peut pas être vide");
             }else if(in_stock_modify.getSelectedItem().equals(null)){
-                Toast.makeText(this, "you need to specify if the product is in stock or not", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "vous devez préciser si le produit est en stock ou non", Toast.LENGTH_SHORT).show();
             }else if(product_discount_modify.getText().toString().length()==0){
-                product_discount_modify.setError("This field cannot be empty");
+                product_discount_modify.setError("Ce champ ne peut pas être vide");
             }else{
                 modify_product();
             }
         });
 
         product_image_modify.setOnClickListener(x->{
-            Toast.makeText(this, "choose an image from gallery", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "choisir une image de la galerie", Toast.LENGTH_SHORT).show();
             openGallery();
 
         });
@@ -142,7 +142,7 @@ public class ModifyPageActivity extends AppCompatActivity {
                 product_modify.put("ProductDiscount",product_discount_modify.getText().toString());
                 collectionReference.document(getIntent().getStringExtra("ID")).update(product_modify).addOnCompleteListener(tsk->{
                     if(tsk.isSuccessful()){
-                        Toast.makeText(this, "product updated successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "produit mis à jour avec succès", Toast.LENGTH_SHORT).show();
                         product_name_modify.setText("");
                         Glide.with(getApplicationContext()).load("").into(product_image_modify);
                         product_prise_modify.setText("");
@@ -152,14 +152,14 @@ public class ModifyPageActivity extends AppCompatActivity {
                         product_description_modify.setText("");
                         product_discount_modify.setText("");
                     }else{
-                        Toast.makeText(this, "there was a problem", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Il y avait un problème", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(failure->{
-                    Toast.makeText(this, "there was a problem", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Il y avait un problème", Toast.LENGTH_SHORT).show();
                 });
 
             }).addOnFailureListener(failure->{
-                Toast.makeText(this, "you need to select an image", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "vous devez sélectionner une image", Toast.LENGTH_SHORT).show();
             });
         }else{
             HashMap<String,Object> product_modify=new HashMap<>();
@@ -175,7 +175,7 @@ public class ModifyPageActivity extends AppCompatActivity {
 
             collectionReference.document(getIntent().getStringExtra("ID")).update(product_modify).addOnCompleteListener(task->{
                 if(task.isSuccessful()){
-                    Toast.makeText(this, "updated product successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "produit mis à jour avec succès", Toast.LENGTH_SHORT).show();
                     product_name_modify.setText("");
                     Glide.with(getApplicationContext()).load("").into(product_image_modify);
                     product_prise_modify.setText("");
@@ -186,7 +186,7 @@ public class ModifyPageActivity extends AppCompatActivity {
                     product_discount_modify.setText("");
                 }
             }).addOnFailureListener(failure->{
-                Toast.makeText(this, "failed to update the product", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "échec de la mise à jour du produit", Toast.LENGTH_SHORT).show();
             });
         }
     }
@@ -223,7 +223,7 @@ public class ModifyPageActivity extends AppCompatActivity {
                 openGallery();
             } else {
 
-                Toast.makeText(this, "Permission denied...!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permission refusée\n...!", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -267,7 +267,7 @@ public class ModifyPageActivity extends AppCompatActivity {
 
         }).addOnFailureListener(fail->{
             progress_bar_new_product_modify.setVisibility(View.INVISIBLE);
-            Toast.makeText(this, "failed to load product", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "échec du chargement du produit", Toast.LENGTH_SHORT).show();
         });
     }
 
