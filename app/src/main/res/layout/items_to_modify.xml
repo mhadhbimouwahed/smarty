@@ -22,17 +22,18 @@
             android:layout_marginStart="10dp"
             android:background="@drawable/gradient_textview"
             android:padding="10dp"
-            android:text="modifier"
+            android:text="Ajouter au panier
+"
             android:textColor="#ffffff"
             android:textSize="10sp"
             android:textStyle="bold" />
+
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,21 +44,19 @@
                 android:textColor="#000000"
                 android:textSize="10sp"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/nomDuProduit_modify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:padding="1dp"
-                android:text="nom du produit"
+                android:text="product name"
                 android:textColor="#000000"
                 android:textSize="10sp"
                 android:textStyle="bold" />
-
-
         </LinearLayout>
+
 
 
         <LinearLayout
@@ -66,6 +65,7 @@
             android:orientation="horizontal">
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -80,16 +80,14 @@
                 android:id="@+id/prixDuProduit_modify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:padding="1dp"
-                android:text="prix"
+                android:text="product prise"
                 android:textColor="#000000"
                 android:textSize="10sp"
                 android:textStyle="bold" />
-
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -128,13 +126,15 @@
             android:id="@+id/expandable_layout_modify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="40dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
                 <TextView
 
                     android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:padding="5dp"
-                    android:text="Constructeur du produit:"
+                    android:text="Constructeur du produit: "
                     android:textColor="#000000"
 
                     android:textSize="10sp"
@@ -154,7 +154,7 @@
 
                     android:layout_marginTop="5dp"
                     android:padding="5dp"
-                    android:text="constructeur du produit"
+                    android:text="product manufacturer"
                     android:textColor="#000000"
 
                     android:textSize="10sp"
@@ -172,19 +172,19 @@
 
                 android:textSize="10sp"
                 android:textStyle="bold" />
-            <TextView
-                android:id="@+id/idDuProduit_modify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:padding="5dp"
-                android:text="product ID"
-                android:textColor="#ffffff"
-                android:textSize="1sp"
-                android:textStyle="bold" />
 
         </LinearLayout>
+        <TextView
+            android:id="@+id/idDuProduit_modify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:text="product ID"
+            android:textColor="#ffffff"
+            android:textSize="1sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
@@ -193,7 +193,7 @@
         android:id="@+id/imageDuProduit_modify"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginStart="215dp"
+        android:layout_marginStart="225dp"
         android:layout_marginTop="15dp"/>
 
 </androidx.cardview.widget.CardView>
