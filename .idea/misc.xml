@@ -36,6 +36,7 @@
         <entry key="app/src/main/res/layout/activity_modify_product.xml" value="0.31562819203268644" />
         <entry key="app/src/main/res/layout/activity_navigation.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/activity_navigation_client.xml" value="0.321875" />
+        <entry key="app/src/main/res/layout/activity_not_logged_in.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/activity_not_loggedin.xml" value="0.31562819203268644" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.31562819203268644" />
         <entry key="app/src/main/res/layout/app_bar_client.xml" value="0.72" />

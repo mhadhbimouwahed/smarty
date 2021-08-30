@@ -2,6 +2,7 @@ package com.example.smarty;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         TextView login = findViewById(R.id.login);
         TextView forgotPassword = findViewById(R.id.forgotPassword);
         TextView signup = findViewById(R.id.signup);
+        TextView signin_anonymously=findViewById(R.id.signin_anonymously);
 
         progressBar=findViewById(R.id.progress_bar);
         logo=findViewById(R.id.logo);
@@ -64,6 +66,20 @@ public class MainActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 LoginMan();
             }
+        });
+        
+        signin_anonymously.setOnClickListener(x->{
+            firebaseAuth.signInAnonymously().addOnCompleteListener(task->{
+                if (task.isSuccessful()){
+                    startActivity(new Intent(getApplicationContext(),NotLoggedInActivity.class));
+                    Toast.makeText(getApplicationContext(), "connecté anonymement avec succès", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "impossible de se connecter de manière anonyme", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(failure->{
+                Log.d("ERROR_SIGNIN_ANONYMOUSLY",failure.getMessage()); 
+            });
+
         });
 
     }
